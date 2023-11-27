@@ -1,7 +1,7 @@
 import math
 
 class Square:
-    def __init__(self, owner='NA', type='N'):
+    def __init__(self, owner='NA', type='_'):
         """
         Type can be one of the following:
         B = Blank:   These are unplayable regions
@@ -90,12 +90,14 @@ class PaiSho:
                 #Sets the non-neutral region
                 if((abs(ycord)+abs(xcord))<(self.radius-1)):
                     if(ycord*xcord < 0):
-                        self.board[i][j].type = 'W'
+                        # Set White Region
+                        self.board[i][j].type = '='
                     if(ycord*xcord > 0):
-                        self.board[i][j].type = "R"
+                        # Set Red Region
+                        self.board[i][j].type = "+"
                 #Sets the unplayable region
                 elif((abs(ycord)+abs(xcord))>(self.radius+math.floor(self.radius/2))):
-                    self.board[i][j].type = 'B'                    
+                    self.board[i][j].type = 'X'                    
 
         self.board[self.radius][0].type = 'G'
         self.board[0][self.radius].type = 'G'
@@ -117,7 +119,12 @@ class PaiSho:
         output = ""
         for i in range(self.radius*2+1):
             for j in range(self.radius*2+1):
-                output += "["+self.board[j][i].stats()+"]"
+                square = self.board[i][j]
+                if square.type == 'X':
+                    # Handle possibility of an empty tile.
+                    output += "   "
+                else:
+                    output += "["+square.stats()+"]"
             output += "\n"
         print(output)
         
