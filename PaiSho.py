@@ -1,7 +1,7 @@
 import math
 
 class Square:
-    def __init__(self, piece='NA', type='N'):
+    def __init__(self, owner='NA', type='N'):
         """
         Type can be one of the following:
         B = Blank:   These are unplayable regions
@@ -19,14 +19,52 @@ class Square:
         P2 - Player 2's piece
         NA - No piece
         """
-        self.piece = piece
+        if(owner != 'NA'):
+            self.piece = Piece(owner)
+        else:
+            self.piece = None
     
+    # Removes a piece from this square
+    def remove(self):
+        if self.occupied():
+            self.piece.disconnect()
+            self.piece = None
+        else:
+            raise Exception("There is no piece to remove")
+
+    # Adds a piece to this square
+    def add(self, owner):
+        if not self.occupied():
+            self.piece = Piece(owner)
+        else:
+            raise Exception("This space already has a piece")
+        
+    # Return if this square has a piece
+    def occupied(self):
+        return not self.piece == None
+
+    # Returns printable info
     def stats(self):
-        if not self.type == 'NA':
-            return self.piece
+        if self.occupied():
+            return self.piece.type
         else:
             return self.type
 
+class Piece:
+    def __init__(self, owner):
+        self.type = "3"
+        self.owner = owner
+        self.connected = [] # List of harmonizing pieces
+
+    # Remove all harmonies attached to this piece
+    def disconnect(self):
+        for piece in self.connected:
+            piece.connected.remove(self)    
+
+    # Harmonize the current piece with another piece
+    def connect(self, piece):
+        self.piece.connected.append(piece)
+        
 class PaiSho:
     def __init__(self, radius=7):
         """
@@ -63,8 +101,14 @@ class PaiSho:
         self.board[0][self.radius].type = 'G'
         self.board[self.radius][self.radius*2].type = 'G'
         self.board[self.radius*2][self.radius].type = 'G'
+
+    # Add a piece to the associated pai sho coordinate
+    def add(self, x, y, owner):
+        self.board[self.radius+x][self.radius-y].add(owner)
         
-        
+    # Remove a piece from the associated pai sho coordinate
+    def remove(self, x, y):
+        self.board[self.radius+x][self.radius-y].remove()
 
     def display_board(self):
         """
@@ -73,7 +117,7 @@ class PaiSho:
         output = ""
         for i in range(self.radius*2+1):
             for j in range(self.radius*2+1):
-                output += "["+self.board[j][i].type+"]"
+                output += "["+self.board[j][i].stats()+"]"
             output += "\n"
         print(output)
         
@@ -81,5 +125,9 @@ game = PaiSho()
 game.display_board()
 
 # Example of setting specific values:
-game.board[5][1].type = "#"
+game.add(2,1,"P1")
+game.display_board()
+
+# Example of setting specific values:
+game.remove(2,1)
 game.display_board()
