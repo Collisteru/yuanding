@@ -1,69 +1,8 @@
 import math
+import square
+import piece
 
-class Square:
-    def __init__(self, owner='NA', type='_'):
-        """
-        Type can be one of the following:
-        B = Blank:   These are unplayable regions
-        N = Neutral: These are regions any piece can be in
-        R = Red:     White pieces can't be in this region
-        W = White:   Red pieces can't be in this region
-        """
-        self.type = type
 
-        """
-        These are yet to be implemented, but they would represent
-        which flower piece is currently on the piece.
-        Type can be one of the following:
-        P1 - Player 1's piece
-        P2 - Player 2's piece
-        NA - No piece
-        """
-        if(owner != 'NA'):
-            self.piece = Piece(owner)
-        else:
-            self.piece = None
-    
-    # Removes a piece from this square
-    def remove(self):
-        if self.occupied():
-            self.piece.disconnect()
-            self.piece = None
-        else:
-            raise Exception("There is no piece to remove")
-
-    # Adds a piece to this square
-    def add(self, owner):
-        if not self.occupied():
-            self.piece = Piece(owner)
-        else:
-            raise Exception("This space already has a piece")
-        
-    # Return if this square has a piece
-    def occupied(self):
-        return not self.piece == None
-
-    # Returns printable info
-    def stats(self):
-        if self.occupied():
-            return self.piece.type
-        else:
-            return self.type
-
-class Piece:
-    def __init__(self, owner):
-        self.type = "3"
-        self.owner = owner
-        self.connected = [] # List of harmonizing pieces
-
-    # Remove all harmonies attached to this piece
-    def disconnect(self):
-        for piece in self.connected:
-            piece.connected.remove(self)    
-
-    # Harmonize the current piece with another piece
-    def connect(self, piece):
-        self.piece.connected.append(piece)
         
 class PaiSho:
     def __init__(self, radius=7):
@@ -77,7 +16,7 @@ class PaiSho:
         """
 
         self.radius = radius
-        self.board = [[Square() for i in range(self.radius*2+1)] for j in range(self.radius*2+1)] 
+        self.board = [[square.Square() for i in range(self.radius*2+1)] for j in range(self.radius*2+1)] 
         self.players = 2
         self.current_player = 1
         self.moves = []
@@ -127,14 +66,18 @@ class PaiSho:
                     output += "["+square.stats()+"]"
             output += "\n"
         print(output)
-        
-game = PaiSho()
-game.display_board()
 
-# Example of setting specific values:
-game.add(2,1,"P1")
-game.display_board()
 
-# Example of setting specific values:
-game.remove(2,1)
-game.display_board()
+def main(): 
+    game = PaiSho()
+    game.display_board()
+
+    # Example of setting specific values:
+    game.add(2,1,"P1")
+    game.display_board()
+
+    # Example of setting specific values:
+    game.remove(2,1)
+    game.display_board()
+
+main()
