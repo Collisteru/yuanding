@@ -53,9 +53,9 @@ class PaiSho:
         self.checkHarmonies()
 
     # Move piece from one coordinate to another
-    def move(oldx, oldy, newx, newy):
+    def move(self, oldx, oldy, newx, newy):
         # Check that there's a piece on (oldx, oldy)
-        piece = self.board[self.radius+oldx][self.radius-oldy].piece() # This will raise an exception if there's no piece
+        piece = self.board[self.radius+oldx][self.radius-oldy].piece # This will raise an exception if there's no piece
         owner = piece.owner
 
         # Check that the new square is within the range of the piece
@@ -104,10 +104,8 @@ class PaiSho:
                                 smallestAbove = [k[2],abs(diff)]
                     if(not smallestBelow[0] == None):
                         j[2].harmonize(smallestBelow[0])
-                        print(j[2].harmonized)
                     if(not smallestAbove[0] == None):
                         j[2].harmonize(smallestAbove[0])
-                        print(j[2].harmonized)
 
         for i in horizontal:
             if not i == []:
@@ -124,10 +122,8 @@ class PaiSho:
                                 smallestAbove = [k[2],abs(diff)]
                     if(not smallestBelow[0] == None):
                         j[2].harmonize(smallestBelow[0])
-                        print(j[2].harmonized)
                     if(not smallestAbove[0] == None):
                         j[2].harmonize(smallestAbove[0])
-                        print(j[2].harmonized)
 
     
     def display_board(self):
