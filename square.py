@@ -28,7 +28,7 @@ class Square:
     # Removes a piece from this square
     def remove(self):
         if self.occupied():
-            self.piece.disconnect()
+            self.piece.disharmonize()
             self.piece = None
         else:
             raise Exception("There is no piece to remove")
@@ -37,6 +37,7 @@ class Square:
     def add(self, owner):
         if not self.occupied():
             self.piece = piece.Piece(owner)
+            return self.piece
         else:
             raise Exception("This space already has a piece")
         

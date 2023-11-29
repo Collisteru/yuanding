@@ -12,4 +12,11 @@ def main():
     game.remove(2,1)
     game.display_board()
 
+    # game.add(2,-1,"P1")
+    game.display_board()
+
+    # Example of setting specific values:
+    game.checkHarmonies()
+
+
 main()
