@@ -52,6 +52,23 @@ class PaiSho:
         self.board[self.radius+x][self.radius-y].remove()
         self.checkHarmonies()
 
+    # Move piece from one coordinate to another
+    def move(oldx, oldy, newx, newy):
+        # Check that there's a piece on (oldx, oldy)
+        piece = self.board[self.radius+oldx][self.radius-oldy].piece() # This will raise an exception if there's no piece
+        owner = piece.owner
+
+        # Check that the new square is within the range of the piece
+        piecerange = int(piece.type)
+        accessible = (abs(newx-oldx) + abs(newy-oldy) <= piecerange)
+        if not accessible: raise Exception("Out of range")
+
+        # Remove the piece from the old square and add it to the new square
+        self.remove(oldx,oldy)
+        self.add(newx, newy, owner)
+
+        
+
     # Check the board state for any new harmonies and removed harmonies
     def checkHarmonies(self):
 
@@ -72,9 +89,6 @@ class PaiSho:
                 if j[1]+self.radius == i:
                     horizontal[i].append(j)
         
-        # print(vertical)
-        # print(horizontal)
-
         for i in vertical:
             if not i == []:
                 for j in i:
@@ -115,6 +129,7 @@ class PaiSho:
                         j[2].harmonize(smallestAbove[0])
                         print(j[2].harmonized)
 
+    
     def display_board(self):
         """
         Displays the board in a user-friendly format
