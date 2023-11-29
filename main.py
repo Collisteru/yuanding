@@ -1,4 +1,5 @@
 import paisho
+import termcolor
 
 def main(): 
     game = paisho.PaiSho()

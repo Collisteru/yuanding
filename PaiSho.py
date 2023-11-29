@@ -1,7 +1,8 @@
 import math
 import square
 import piece
-
+from colorama import just_fix_windows_console
+from termcolor import colored
         
 class PaiSho:
     def __init__(self, radius=7):
