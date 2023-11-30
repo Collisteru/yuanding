@@ -175,10 +175,10 @@ class PaiSho:
                     piece = self.board[j][i].piece
                     piece_owner = piece.owner
                     piece_type = piece.type
-                    if piece.owner == "P1":
-                        piece_color = 'red'
+                    if piece.owner == 0:
+                        piece_color = 'grey' # The Guest has dark tiles
                     else:
-                        piece_color = 'white'
+                        piece_color = 'white' # The Host has white tiles
                     piece_string = colored(piece_type, piece_color)
                     
                     squarestring = colored("[", color) + piece_string + colored("]", color)
@@ -246,8 +246,6 @@ class PaiSho:
                     continue
             
             if (move_type == 'A'):
-
-
                 oldx = input("Type in the first coordinate (x value) of the piece you want to move. \n")                
 
                 oldy = input("Type in the second coordinate (y value) of the piece you want to move.\n")
