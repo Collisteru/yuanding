@@ -277,7 +277,7 @@ class PaiSho:
 
     # Start a game of Skud Pai Sho
     def play(self):
-        print("Come in and have a cup of tea. Let's play a relaxing game of Skud Pai Sho.")
+        print("Come in and have a cup of tea. Let's play a game of Skud Pai Sho.")
         
         # The Host plays with light tiles and the Guest plays with dark tiles. The Guest plays first.
         # Internally we represent the Guest as 0 and the Host as 1
