@@ -134,6 +134,33 @@ class PaiSho:
         output = ""
         for i in range(self.radius*2+1):
             for j in range(self.radius*2+1):
-                output += "["+self.board[j][i].stats()+"]"
+                square_type = self.board[j][i].type
+                squarestring = ""
+                if square_type == "G":
+                    color = 'red'
+                elif square_type == "W":
+                    color = 'white'
+                elif square_type == "R":
+                    color = 'red'
+                else:
+                    color = 'grey'
+
+                if square_type == "B":
+                    squarestring = "   "
+                else:
+                    squarestring = colored("[ ]", color)
+                
+                if self.board[j][i].piece != None:
+                    piece = self.board[j][i].piece
+                    piece_owner = piece.owner
+                    piece_type = piece.type
+                    if piece.owner == "P1":
+                        piece_color = 'red'
+                    else:
+                        piece_color = 'white'
+                    piece_string = colored(piece_type, piece_color)
+                    
+                    squarestring = colored("[", color) + piece_string + colored("]", color)
+                output += squarestring
             output += "\n"
         print(output)

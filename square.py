@@ -43,17 +43,11 @@ class Square:
         
     # Return if this square has a piece
     def occupied(self):
-        return not self.piece == None
+        return not (self.piece == None)
     
     # Returns the piece that is on this square
     def piece(self):
         if self.occupied:
             return self.piece
-        else: raise Exception("There is no piece on this square.")
-
-    # Returns printable info
-    def stats(self):
-        if self.occupied():
-            return self.piece.type
-        else:
-            return self.type
+        else: 
+            return 0
