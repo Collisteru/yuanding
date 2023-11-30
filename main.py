@@ -1,38 +1,34 @@
 import paisho
 import termcolor
+import sys, getopt
 
 
-game = paisho.PaiSho()
-game.display_board()
+def main(argv):
+    opts, args = getopt.getopt(argv, "hr:")
 
-# Add piece
-game.add(2,1,"P1")
-game.display_board()
+    for opt, arg in opts:
+        if opt == '-h':
+            print("python main.py -r <board radius>")
+            sys.exit()
+        elif opt == '-r':
+            radius = arg
 
-# Move piece one square up
-game.move(2,1,2,2)
-game.display_board()
+    game = paisho.PaiSho(int(radius)) 
+    game.display_board()
 
-# Move piece up one and to the right diagonally
-game.move(2,2,3,3)
-game.display_board()
+    # # Add piece
+    # game.add(2,1,"P1")
+    # game.display_board()
 
-# Try to move piece out of range. An exception should result
-game.move(3,3,-1,3)
-game.display_board()
+    # # Move piece one square up
+    # game.move(2,1,2,2)
+    # game.display_board()
 
-# Other Examples:
+    # # Move piece up one and to the right diagonally
+    # game.move(2,2,3,3)
+    # game.display_board()
 
-# # Example of setting specific values:
-# game.add(2,1,"P1")
-# game.display_board()
 
-# # Example of setting specific values:
-# game.remove(2,1)
-# game.display_board()
 
-# # game.add(2,-1,"P1")
-# game.display_board()
-
-# # Example of setting specific values:
-# game.checkHarmonies()
+if __name__ == "__main__":
+    main(sys.argv[1:])
