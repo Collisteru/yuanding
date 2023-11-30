@@ -136,26 +136,31 @@ class PaiSho:
             for j in range(self.radius*2+1):
                 square_type = self.board[j][i].type
                 squarestring = ""
+                if square_type == "G":
+                    color = 'red'
+                elif square_type == "W":
+                    color = 'white'
+                elif square_type == "R":
+                    color = 'red'
+                else:
+                    color = 'grey'
+
                 if square_type == "B":
                     squarestring = "   "
-                elif square_type == "G":
-                    squarestring = colored("[ ]", 'red')
-                elif square_type == "W":
-                    squarestring = colored("[ ]", 'white')
-                elif square_type == "R":
-                    squarestring = colored("[ ]", 'red')
                 else:
-                    squarestring = colored("[ ]", 'grey')
-                if self.board[j][i].occupied:
+                    squarestring = colored("[ ]", color)
+                
+                if self.board[j][i].piece != None:
                     piece = self.board[j][i].piece
-                    print("piece: ", piece)
                     piece_owner = piece.owner
                     piece_type = piece.type
                     if piece.owner == "P1":
                         piece_color = 'red'
                     else:
                         piece_color = 'white'
-                    squarestring[1] = colored(piece_type, piece_color)
-                ouptput += squarestring
+                    piece_string = colored(piece_type, piece_color)
+                    
+                    squarestring = colored("[", color) + piece_string + colored("]", color)
+                output += squarestring
             output += "\n"
         print(output)
