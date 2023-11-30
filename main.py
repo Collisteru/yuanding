@@ -6,6 +6,9 @@ import sys, getopt
 def main(argv):
     opts, args = getopt.getopt(argv, "hr:")
 
+    # Default radius
+    radius = 7
+
     for opt, arg in opts:
         if opt == '-h':
             print("python main.py -r <board radius>")
@@ -14,7 +17,10 @@ def main(argv):
             radius = arg
 
     game = paisho.PaiSho(int(radius)) 
-    game.display_board()
+    game.play()
+
+
+    # Testing suites below
 
     # # Add piece
     # game.add(2,1,"P1")

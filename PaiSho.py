@@ -22,6 +22,8 @@ class PaiSho:
         self.current_player = 1
         self.placed = [] # Stores placed pieces as [(x,y,piece)]
         self.moves = []
+        self.game_over = 0
+        self.round = 1
 
         for i in range(self.diameter):        
             xcord = self.radius-i
@@ -69,7 +71,6 @@ class PaiSho:
         self.add(newx, newy, owner)
 
         
-
     # Check the board state for any new harmonies and removed harmonies
     def checkHarmonies(self):
 
@@ -126,7 +127,27 @@ class PaiSho:
                     if(not smallestAbove[0] == None):
                         j[2].harmonize(smallestAbove[0])
 
+    # Prints a list of which gates are open
+    # And returns a dictionary of which gates are open (key value = 1)
+    def check_open_gates(self):
+        up_open = not self.board[self.radius][0].occupied()
+        down_open = not self.board[self.radius][2 * self.radius].occupied()
+
+        left_open = not self.board[0][self.radius].occupied()
+        right_open = not self.board[2 * self.radius][self.radius].occupied()
+
+        if not (up_open or down_open or left_open or right_open):
+            print("There are no open gates.")
+            return 0
     
+        up_string = "Up" if up_open else ""
+        down_string = "Down" if down_open else ""
+        left_string = "Left" if left_open else "" 
+        right_string = "Right" if right_open else ""
+    
+        print("The following gates are open: {0} {1} {2} {3}".format(up_string, right_string, down_string, left_string))
+        return {up_string: up_open, right_string: right_open, down_string: down_open, left_string: left_open}
+
     def display_board(self):
         """
         Displays the board in a user-friendly format
@@ -164,3 +185,115 @@ class PaiSho:
                 output += squarestring
             output += "\n"
         print(output)
+
+    def take_turn(self, player):
+        
+
+        # Input loop
+        while True:
+            player_string = "Host" if player else "Guest"
+            # Ask the player what they want to do
+            input_string = input("Round {1}: It's your turn, {0}. Do you want to Plant or Arrange? Press P to Plant, A to arrange. \n".format(player_string, self.round))
+
+            if (input_string == 'p' or input_string == 'P'):
+                move_type = 'P'
+            elif (input_string == 'a' or input_string == 'A'):
+                move_type = 'A'
+            else:
+                print("Unrecognized input format, try again.")
+                continue
+
+            # Process Planting
+            if (move_type == 'P'):
+                open_gates = self.check_open_gates()
+                if open_gates:
+                    chosen_gate = input("Choose which gate you want to plant at. Type U, R, D, or L. These mean Up, Right, Down, and Left respectively. \n")
+                    
+                    if (chosen_gate == "U" or chosen_gate == "u"):
+                        if open_gates["Up"]:
+                            self.board[self.radius][0].add(player)
+                            break
+                        else:
+                            print("The upper gate already has a piece in it.")
+                            continue
+                    elif (chosen_gate == "D" or chosen_gate == "d"):
+                        if open_gates["Down"]:
+                            self.board[self.radius][2 * self.radius].add(player)
+                            break
+                        else:
+                            print("The lower gate already has a piece in it.")
+                            continue
+                    elif (chosen_gate == "R" or chosen_gate == "r"):
+                        if open_gates["Right"]:
+                            self.board[2 * self.radius][self.radius].add(player)
+                            break
+                        else:
+                            print("The right gate already has a piece in it.")
+                            continue
+                    elif (chosen_gate == "L" or chosen_gate == "l"):
+                        if open_gates["Left"]:
+                            self.board[0][self.radius].add(player)
+                            break
+                        else:
+                            print("The left gate already has a piece in it.")
+                            continue
+                    else:
+                        print("Unrecognized input! Try again.\n")
+                        continue
+                    
+                else:
+                    print("There aren't any open gates! Try arranging.")
+                    continue
+            
+            if (move_type == 'A'):
+                oldx = input("Type in the first coordinate (x value) of the piece you want to move. \n")                
+
+                oldy = input("Type in the second coordinate (y value) of the piece you want to move.\n")
+
+                newx = input("Type in the first corrdinate (x value) of the new poistion you want your piece to be in. \n")
+        
+                newy = input("Type in the second coordinate (y value) of the new position your piece to be in. \n")
+
+                try:
+                    int(oldx) ; int(oldy) ; int(newx) ; int(newy)
+                except:
+                    print("One of your coordinate inputs isn't an integer!")
+                    continue
+
+                # The Move function should handle the remaining edge cases
+                self.move(int(oldx), int(oldy), int(newx), int(newy))
+                break
+
+        # Display the results of the action
+        print("Turn played successfully.")
+        self.display_board()
+
+    # Check whether the current state of the board fulfills the win condition
+    # If it does, set self.game_over to 1
+    # TODO: Implement this
+    def check_win_condition(self):    
+        self.game_over = 0
+        pass
+
+    # Start a game of Skud Pai Sho
+    def play(self):
+        print("Come in and have a cup of tea. Let's play a relaxing game of Skud Pai Sho.")
+        
+        # The Host plays with light tiles and the Guest plays with dark tiles. The Guest plays first.
+        # Internally we represent the Guest as 0 and the Host as 1
+
+        self.display_board()
+        curr_player = 0
+        while not self.game_over:
+            self.take_turn(curr_player)
+            
+            self.check_win_condition()
+
+            if curr_player == 1:
+                self.round += 1
+
+            curr_player = (curr_player + 1) % 2
+
+        sys.exit()
+
+
