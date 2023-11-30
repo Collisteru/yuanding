@@ -146,7 +146,7 @@ class PaiSho:
         right_string = "Right" if right_open else ""
     
         print("The following gates are open: {0} {1} {2} {3}".format(up_string, right_string, down_string, left_string))
-        return {up_string: up_open, right_string: right_open, down_string: down_open, left_string: left_open}
+        return {"Up": up_open, "Right": right_open, "Down": down_open, "Left": left_open}
 
     def display_board(self):
         """
@@ -211,28 +211,28 @@ class PaiSho:
                     
                     if (chosen_gate == "U" or chosen_gate == "u"):
                         if open_gates["Up"]:
-                            self.board[self.radius][0].add(player)
+                            self.add(0, self.radius, player)
                             break
                         else:
                             print("The upper gate already has a piece in it.")
                             continue
                     elif (chosen_gate == "D" or chosen_gate == "d"):
                         if open_gates["Down"]:
-                            self.board[self.radius][2 * self.radius].add(player)
+                            self.add(0, -self.radius, player)
                             break
                         else:
                             print("The lower gate already has a piece in it.")
                             continue
                     elif (chosen_gate == "R" or chosen_gate == "r"):
                         if open_gates["Right"]:
-                            self.board[2 * self.radius][self.radius].add(player)
+                            self.add(self.radius, 0, player)
                             break
                         else:
                             print("The right gate already has a piece in it.")
                             continue
                     elif (chosen_gate == "L" or chosen_gate == "l"):
                         if open_gates["Left"]:
-                            self.board[0][self.radius].add(player)
+                            self.add(-self.radius, 0, player)
                             break
                         else:
                             print("The left gate already has a piece in it.")
@@ -246,6 +246,8 @@ class PaiSho:
                     continue
             
             if (move_type == 'A'):
+
+
                 oldx = input("Type in the first coordinate (x value) of the piece you want to move. \n")                
 
                 oldy = input("Type in the second coordinate (y value) of the piece you want to move.\n")
@@ -295,5 +297,3 @@ class PaiSho:
             curr_player = (curr_player + 1) % 2
 
         sys.exit()
-
-
