@@ -1,70 +1,8 @@
 import math
-
-class Square:
-    def __init__(self, owner='NA', type='N'):
-        """
-        Type can be one of the following:
-        B = Blank:   These are unplayable regions
-        N = Neutral: These are regions any piece can be in
-        R = Red:     White pieces can't be in this region
-        W = White:   Red pieces can't be in this region
-        """
-        self.type = type
-
-        """
-        These are yet to be implemented, but they would represent
-        which flower piece is currently on the piece.
-        Type can be one of the following:
-        P1 - Player 1's piece
-        P2 - Player 2's piece
-        NA - No piece
-        """
-        if(owner != 'NA'):
-            self.piece = Piece(owner)
-        else:
-            self.piece = None
-    
-    # Removes a piece from this square
-    def remove(self):
-        if self.occupied():
-            self.piece.disconnect()
-            self.piece = None
-        else:
-            raise Exception("There is no piece to remove")
-
-    # Adds a piece to this square
-    def add(self, owner):
-        if not self.occupied():
-            self.piece = Piece(owner)
-            return self.piece
-        else:
-            raise Exception("This space already has a piece")
-        
-    # Return if this square has a piece
-    def occupied(self):
-        return not self.piece == None
-
-    # Returns printable info
-    def stats(self):
-        if self.occupied():
-            return self.piece.type
-        else:
-            return self.type
-
-class Piece:
-    def __init__(self, owner):
-        self.type = "3"
-        self.owner = owner
-        self.connected = [] # List of harmonizing pieces
-
-    # Remove all harmonies attached to this piece
-    def disconnect(self):
-        for piece in self.connected:
-            piece.connected.remove(self)    
-
-    # Harmonize the current piece with another piece
-    def connect(self, piece):
-        self.connected.append(piece)
+import square
+import piece
+from colorama import just_fix_windows_console
+from termcolor import colored
         
 class PaiSho:
     def __init__(self, radius=7):
@@ -79,7 +17,7 @@ class PaiSho:
 
         self.radius = radius
         self.diameter = 2*radius + 1
-        self.board = [[Square() for i in range(self.diameter)] for j in range(self.diameter)] 
+        self.board = [[square.Square() for i in range(self.diameter)] for j in range(self.diameter)] 
         self.players = 2
         self.current_player = 1
         self.placed = [] # Stores placed pieces as [(x,y,piece)]
@@ -115,11 +53,28 @@ class PaiSho:
         self.board[self.radius+x][self.radius-y].remove()
         self.checkHarmonies()
 
+    # Move piece from one coordinate to another
+    def move(self, oldx, oldy, newx, newy):
+        # Check that there's a piece on (oldx, oldy)
+        piece = self.board[self.radius+oldx][self.radius-oldy].piece # This will raise an exception if there's no piece
+        owner = piece.owner
+
+        # Check that the new square is within the range of the piece
+        piecerange = int(piece.type)
+        accessible = (abs(newx-oldx) + abs(newy-oldy) <= piecerange)
+        if not accessible: raise Exception("Out of range")
+
+        # Remove the piece from the old square and add it to the new square
+        self.remove(oldx,oldy)
+        self.add(newx, newy, owner)
+
+        
+
     # Check the board state for any new harmonies and removed harmonies
     def checkHarmonies(self):
 
         for j in self.placed:
-            j[2].disconnect()
+            j[2].disharmonize()
 
         vertical = []
         for i in range(self.diameter):
@@ -135,9 +90,6 @@ class PaiSho:
                 if j[1]+self.radius == i:
                     horizontal[i].append(j)
         
-        print(vertical)
-        print(horizontal)
-
         for i in vertical:
             if not i == []:
                 for j in i:
@@ -152,11 +104,9 @@ class PaiSho:
                             if abs(diff) < smallestAbove[1]:
                                 smallestAbove = [k[2],abs(diff)]
                     if(not smallestBelow[0] == None):
-                        j[2].connect(smallestBelow[0])
-                        print(j[2].connected)
+                        j[2].harmonize(smallestBelow[0])
                     if(not smallestAbove[0] == None):
-                        j[2].connect(smallestAbove[0])
-                        print(j[2].connected)
+                        j[2].harmonize(smallestAbove[0])
 
         for i in horizontal:
             if not i == []:
@@ -172,12 +122,11 @@ class PaiSho:
                             if abs(diff) < smallestAbove[1]:
                                 smallestAbove = [k[2],abs(diff)]
                     if(not smallestBelow[0] == None):
-                        j[2].connect(smallestBelow[0])
-                        print(j[2].connected)
+                        j[2].harmonize(smallestBelow[0])
                     if(not smallestAbove[0] == None):
-                        j[2].connect(smallestAbove[0])
-                        print(j[2].connected)
+                        j[2].harmonize(smallestAbove[0])
 
+    
     def display_board(self):
         """
         Displays the board in a user-friendly format
@@ -188,16 +137,3 @@ class PaiSho:
                 output += "["+self.board[j][i].stats()+"]"
             output += "\n"
         print(output)
-        
-game = PaiSho()
-game.display_board()
-
-# Example of setting specific values:
-game.add(2,1,"P1")
-game.display_board()
-
-game.add(2,-1,"P1")
-game.display_board()
-
-# Example of setting specific values:
-game.checkHarmonies()
