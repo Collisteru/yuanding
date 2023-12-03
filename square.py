@@ -34,9 +34,9 @@ class Square:
             raise Exception("There is no piece to remove")
 
     # Adds a piece to this square
-    def add(self, owner):
+    def add(self, owner, x, y):
         if not self.occupied():
-            self.piece = piece.Piece(owner)
+            self.piece = piece.Piece(owner, x, y)
             return self.piece
         else:
             raise Exception("This space already has a piece")

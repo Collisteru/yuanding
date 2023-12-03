@@ -3,7 +3,7 @@ import square
 import piece
 from colorama import just_fix_windows_console
 from termcolor import colored
-        
+    
 class PaiSho:
     def __init__(self, radius=7):
         """
@@ -20,7 +20,7 @@ class PaiSho:
         self.board = [[square.Square() for i in range(self.diameter)] for j in range(self.diameter)] 
         self.players = 2
         self.current_player = 1
-        self.placed = [] # Stores placed pieces as [(x,y,piece)]
+        self.placed = [] # Stores placed pieces as 
         self.moves = []
         self.game_over = 0
         self.round = 1
@@ -47,7 +47,7 @@ class PaiSho:
 
     # Add a piece to the associated pai sho coordinate
     def add(self, x, y, owner):
-        self.placed.append((x,y,self.board[self.radius+x][self.radius-y].add(owner)))
+        self.placed.append(self.board[self.radius+x][self.radius-y].add(owner,x,y))
         self.checkHarmonies()
                 
     # Remove a piece from the associated pai sho coordinate
@@ -75,20 +75,20 @@ class PaiSho:
     def checkHarmonies(self):
 
         for j in self.placed:
-            j[2].disharmonize()
+            j.disharmonize()
 
         vertical = []
         for i in range(self.diameter):
             vertical.append([])
             for j in self.placed:
-                if self.radius+j[0] == i:
+                if self.radius+j.x == i:
                     vertical[i].append(j)
         
         horizontal = []
         for i in range(self.diameter):
             horizontal.append([])
             for j in self.placed:
-                if j[1]+self.radius == i:
+                if self.radius+j.y == i:
                     horizontal[i].append(j)
         
         for i in vertical:
@@ -97,17 +97,17 @@ class PaiSho:
                     smallestAbove = (None,self.diameter)
                     smallestBelow = (None,self.diameter)
                     for k in i:
-                        diff = j[1]-k[1]
+                        diff = j.y-k.y
                         if diff > 0:
                             if diff < smallestBelow[1]:
-                                smallestBelow = (k[2],diff)
+                                smallestBelow = (k,diff)
                         elif diff < 0:
                             if abs(diff) < smallestAbove[1]:
-                                smallestAbove = [k[2],abs(diff)]
+                                smallestAbove = [k,abs(diff)]
                     if(not smallestBelow[0] == None):
-                        j[2].harmonize(smallestBelow[0])
+                        j.harmonize(smallestBelow[0])
                     if(not smallestAbove[0] == None):
-                        j[2].harmonize(smallestAbove[0])
+                        j.harmonize(smallestAbove[0])
 
         for i in horizontal:
             if not i == []:
@@ -115,17 +115,29 @@ class PaiSho:
                     smallestAbove = (None,self.diameter)
                     smallestBelow = (None,self.diameter)
                     for k in i:
-                        diff = j[1]-k[1]
+                        diff = j.y-k.y
                         if diff > 0:
                             if diff < smallestBelow[1]:
-                                smallestBelow = (k[2],diff)
+                                smallestBelow = (k,diff)
                         elif diff < 0:
                             if abs(diff) < smallestAbove[1]:
-                                smallestAbove = [k[2],abs(diff)]
+                                smallestAbove = [k,abs(diff)]
                     if(not smallestBelow[0] == None):
-                        j[2].harmonize(smallestBelow[0])
+                        j.harmonize(smallestBelow[0])
                     if(not smallestAbove[0] == None):
-                        j[2].harmonize(smallestAbove[0])
+                        j.harmonize(smallestAbove[0])
+
+    def display_harmony_chains(self):
+        harmony_chains = []
+        for i in self.placed:
+            for j in i.harmonized:
+                newPair = (i,j)
+                if not (j,i) in harmony_chains:
+                    harmony_chains.append(newPair)
+        
+        for i in harmony_chains:
+            print(f' ( ( {i[0].x},{i[0].y} ) -- ( {i[1].x},{i[1].y} ) )')
+
 
     # Prints a list of which gates are open
     # And returns a dictionary of which gates are open (key value = 1)

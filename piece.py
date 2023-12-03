@@ -1,5 +1,7 @@
 class Piece:
-    def __init__(self, owner):
+    def __init__(self, owner, x, y):
+        self.x = x
+        self.y = y
         self.type = "3"
         self.owner = owner
         self.harmonized = [] # List of harmonizing pieces
