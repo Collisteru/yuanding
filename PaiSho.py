@@ -59,19 +59,40 @@ class PaiSho:
 
     # Move piece from one coordinate to another
     def move(self, oldx, oldy, newx, newy):
+
+        # Why not?
+        class MoveException(Exception):
+            print("Invalid move")
+        # TODO: This MoveException should be caught by all callers!
+
+        old_square = self.board[self.radius+oldx][self.radius-oldy]
+        new_square = self.board[self.radius+newx][self.radius-oldy]
+
         # Check that there's a piece on (oldx, oldy)
-        piece = self.board[self.radius+oldx][self.radius-oldy].piece # This will raise an exception if there's no piece
-        owner = piece.owner
+        if not old_square.occupied(): raise MoveException("That square doesn't have a piece on it!")
+        else: owner = old_square.piece.owner
 
         # Check that the new square is within the range of the piece
         piecerange = int(piece.type)
         accessible = (abs(newx-oldx) + abs(newy-oldy) <= piecerange)
-        if not accessible: raise Exception("Out of range")
+        if not accessible: raise MoveException("Out of range")
+
+        # Check if the new square is occupied
+        occupied = new_square.occupied()
+        if occupied:
+            # If the owner of the piece that's moving in is the same
+            # as the owner of the piece that's already there:
+            if new_square.piece.owner == owner:
+                raise MoveException("Occupied by another one of your pieces!")
+            else:
+                # A capture occurs
+                self.remove(newx,newy)
+
 
         # Remove the piece from the old square and add it to the new square
         self.remove(oldx,oldy)
         self.add(newx, newy, owner)
-
+        return
         
     # Check the board state for any new harmonies and removed harmonies
     def checkHarmonies(self):
@@ -290,8 +311,11 @@ class PaiSho:
                     print("One of your coordinate inputs isn't an integer!")
                     continue
 
-                # The Move function should handle the remaining edge cases
-                self.move(int(oldx), int(oldy), int(newx), int(newy))
+                # The move function has some error handling of its own
+                try:
+                    self.move(int(oldx), int(oldy), int(newx), int(newy))
+                except MoveException as e:
+                    continue
                 break
 
         # Display the results of the action
