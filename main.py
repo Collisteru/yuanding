@@ -7,7 +7,7 @@ def main(argv):
     opts, args = getopt.getopt(argv, "hr:")
 
     # Default radius
-    radius = 7
+    radius = 5
 
     for opt, arg in opts:
         if opt == '-h':
@@ -20,7 +20,7 @@ def main(argv):
     
 
 
-    #game.play()
+    # 
 
 
     # Testing suites below
@@ -34,6 +34,7 @@ def main(argv):
     game.add(3,-1,"P1")
     game.add(4,1,"P1")
     game.add(4,-1,"P1")
+    game.play()
     game.display_harmony_chains()
 
     game.display_board()

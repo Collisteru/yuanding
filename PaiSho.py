@@ -3,9 +3,10 @@ import square
 import piece
 from colorama import just_fix_windows_console
 from termcolor import colored
+import sys
     
 class PaiSho:
-    def __init__(self, radius=7):
+    def __init__(self, radius):
         """
         The constructor for the PaiSho class defines several instance variables:
 
@@ -24,6 +25,7 @@ class PaiSho:
         self.moves = []
         self.game_over = 0
         self.round = 1
+        self.winner = 0 # This usage mans that the host is by default the winner. Make sure to change this!
 
         for i in range(self.diameter):        
             xcord = self.radius-i
@@ -210,11 +212,13 @@ class PaiSho:
                     squarestring = colored("[", color) + piece_string + colored("]", color)
                 output += squarestring
             output += "\n"
+        print("Harmony Chains: \n")
+        self.display_harmony_chains()
+        print("Board: \n")
         print(output)
 
-    def take_turn(self, player):
-        
 
+    def take_turn(self, player):
         # Input loop
         while True:
             player_string = "Host" if player else "Guest"
@@ -368,7 +372,8 @@ class PaiSho:
             '''
             ended = ended or returnedBool
 
-        print(ended)
+            # Update self.winner()
+
         self.game_over = ended
             
         # Go through each node of the graph that represents the harmonies
