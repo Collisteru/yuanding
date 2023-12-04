@@ -355,7 +355,6 @@ class PaiSho:
 
     # Check whether the current state of the board fulfills the win condition
     # If it does, set self.game_over to 1
-    # TODO: Implement this
     def check_win_condition(self):
         self.game_over = 0
         ended = False
