@@ -1,4 +1,4 @@
-import paisho
+import PaiSho
 import termcolor
 import sys, getopt
 
@@ -16,7 +16,7 @@ def main(argv):
         elif opt == '-r':
             radius = arg
 
-    game = paisho.PaiSho(int(radius)) 
+    game = PaiSho.PaiSho(int(radius)) 
     
 
 
@@ -26,14 +26,16 @@ def main(argv):
     # Testing suites below
 
     # # Add piece
-    game.add(2,1,"P1")
-    game.add(2,-1,"P1")
-    game.add(-1,1,"P1")
-    game.add(-1,-1,"P1")
-    game.add(3,1,"P1")
-    game.add(3,-1,"P1")
-    game.add(4,1,"P1")
-    game.add(4,-1,"P1")
+    '''
+    game.add(2,1,1)
+    game.add(2,-1,1)
+    game.add(-1,1,1)
+    game.add(-1,-1,1)
+    game.add(3,1,0)
+    game.add(3,-1,0)
+    game.add(4,1,0)
+    game.add(4,-1,0)
+    '''
     game.play()
     game.display_harmony_chains()
 
@@ -53,3 +55,163 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
+'''test game (Host win)
+p
+r
+
+p
+u
+
+a
+5
+0
+5
+0
+
+p
+d
+
+a
+5
+0
+5
+0
+
+a
+0
+5
+1
+4
+
+a
+5
+0
+5
+0
+
+a
+0
+-5
+1
+-4
+
+a
+5
+0
+5
+0
+
+p
+d
+
+a
+5
+0
+5
+0
+
+p
+u
+
+a
+5
+0
+5
+0
+
+a
+0
+5
+-1
+4
+
+a
+5
+0
+5
+0
+
+a
+0
+-5
+-1
+-4
+'''
+
+'''test game 2 (guest win)
+p
+u
+
+p
+r
+
+p
+d
+
+a
+5
+0
+5
+0
+
+a
+0
+5
+1
+4
+
+a
+5
+0
+5
+0
+
+a
+0
+-5
+1
+-4
+
+a
+5
+0
+5
+0
+
+p
+d
+
+a
+5
+0
+5
+0
+
+p
+u
+
+a
+5
+0
+5
+0
+
+a
+0
+5
+-1
+4
+
+a
+5
+0
+5
+0
+
+a
+0
+-5
+-1
+-4
+'''

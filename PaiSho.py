@@ -54,6 +54,9 @@ class PaiSho:
                 
     # Remove a piece from the associated pai sho coordinate
     def remove(self, x, y):
+        for i in self.placed:
+            if i.x == x and i.y == y:
+                self.placed.remove(i)
         self.board[self.radius+x][self.radius-y].remove()
         self.checkHarmonies()
 
@@ -161,7 +164,7 @@ class PaiSho:
                             j.harmonize(toRight)
 
     def display_harmony_chains(self):
-
+        print(self.placed)
         harmony_chains = []
         for i in self.placed:
             for j in i.harmonized:
@@ -172,7 +175,7 @@ class PaiSho:
         for i in harmony_chains:
             pieceOne = i[0]
             pieceTwo = i[1]
-            print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- ( {pieceTwo.x},{pieceTwo.y} )')
+            print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- {pieceTwo} ( {pieceTwo.x},{pieceTwo.y} )')
 
     # Prints a list of which gates are open
     # And returns a dictionary of which gates are open (key value = 1)
@@ -342,6 +345,11 @@ class PaiSho:
             #print(f' - Looking at ({visited}) ')
             #print(f' - crossings: {crossings}')
             isIn = (((crossings))%2 == 1)
+            if isIn:
+                if current.owner == 1 and self.winner != 0:
+                    self.winner = 1
+                else:
+                    self.winner = 0
             #print(isIn)
             if (current.y >=0) and (start.y < 0):
                 crossings -= 1
@@ -450,6 +458,6 @@ class PaiSho:
         print("Just as the seasons pass away, so must this game of Skud Pai Sho end.")
 
         # TODO: Update this to respond to the value of game.winner
-        print("The winner is IMPLEMENT GAME.WINNER!!")
+        print(f'The winner is IMPLEMENT GAME.WINNER!! {self.winner}')
 
         sys.exit()
