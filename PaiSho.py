@@ -25,7 +25,7 @@ class PaiSho:
         self.moves = []
         self.game_over = 0
         self.round = 1
-        self.winner = 0 # This usage mans that the host is by default the winner. Make sure to change this!
+        self.winner = -1 # This usage mans that the host is by default the winner. Make sure to change this!
 
         for i in range(self.diameter):        
             xcord = self.radius-i
@@ -373,6 +373,7 @@ class PaiSho:
             ended = ended or returnedBool
 
             # Update self.winner()
+            
 
         self.game_over = ended
             
@@ -420,5 +421,11 @@ class PaiSho:
                 self.round += 1
 
             curr_player = (curr_player + 1) % 2
+
+        # Display end of game message
+        print("Just as the seasons pass away, so must this game of Skud Pai Sho end.")
+
+        # TODO: Update this to respond to the value of game.winner
+        print("The winner is IMPLEMENT GAME.WINNER!!")
 
         sys.exit()
