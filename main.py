@@ -17,14 +17,28 @@ def main(argv):
             radius = arg
 
     game = paisho.PaiSho(int(radius)) 
-    game.play()
+    
+
+
+    #game.play()
 
 
     # Testing suites below
 
     # # Add piece
-    # game.add(2,1,"P1")
-    # game.display_board()
+    game.add(2,1,"P1")
+    game.add(2,-1,"P1")
+    game.add(-1,1,"P1")
+    game.add(-1,-1,"P1")
+    game.add(3,1,"P1")
+    game.add(3,-1,"P1")
+    game.add(4,1,"P1")
+    game.add(4,-1,"P1")
+    game.display_harmony_chains()
+
+    game.display_board()
+    
+    game.check_win_condition()
 
     # # Move piece one square up
     # game.move(2,1,2,2)

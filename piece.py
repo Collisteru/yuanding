@@ -17,3 +17,6 @@ class Piece:
     # Harmonize the current piece with another piece
     def harmonize(self, piece):
         self.harmonized.append(piece)
+
+    def __repr__(self):
+        return(f'({self.x}, {self.y})')
