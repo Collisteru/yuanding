@@ -18,11 +18,6 @@ def main(argv):
 
     game = PaiSho.PaiSho(int(radius)) 
     
-
-
-    # 
-
-
     # Testing suites below
 
     # # Add piece
@@ -54,25 +49,25 @@ def main(argv):
     # Testing capture
     ## Successful Capture
 
-    game = PaiSho.PaiSho(3) 
-
-    game.add(0,3, 0)
-    game.add(0,0, 1)
-
-    # Guest moves to capture opponent piece
-
-    game.play()
-
-    ## Unsuccessful Capture
-
     # game = PaiSho.PaiSho(3) 
 
     # game.add(0,3, 0)
-    # game.add(0,0, 0)
+    # game.add(0,0, 1)
 
-    # # Guest moves to attempt to capture own piece
+    # # Guest moves to capture opponent piece
 
     # game.play()
+
+    # Unsuccessful Capture
+
+    game = PaiSho.PaiSho(3) 
+
+    game.add(0,3, 0)
+    game.add(0,0, 0)
+
+    # Guest moves to attempt to capture own piece
+
+    game.play()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

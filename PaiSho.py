@@ -5,10 +5,8 @@ from colorama import just_fix_windows_console
 from termcolor import colored
 import sys
 
+from exceptions import MoveException
 
-# TODO: This should really be moved to an exceptions file
-class MoveException(Exception):
-            print("Invalid move")
     
 class PaiSho:
     def __init__(self, radius):
@@ -68,12 +66,8 @@ class PaiSho:
     # Move piece from one coordinate to another
     def move(self, oldx, oldy, newx, newy):
 
-        # Why not?
-        
-        # TODO: This MoveException should be caught by all callers!
-
         old_square = self.board[self.radius+oldx][self.radius-oldy]
-        new_square = self.board[self.radius+newx][self.radius-oldy]
+        new_square = self.board[self.radius+newx][self.radius-newy]
 
         # Check that there's a piece on (oldx, oldy)
         if not old_square.occupied(): raise MoveException("That square doesn't have a piece on it!")
@@ -94,6 +88,8 @@ class PaiSho:
             else:
                 # A capture occurs
                 self.remove(newx,newy)
+                self.add(newx,newy, owner)
+                self.remove(oldx,oldy)
                 return
 
 
@@ -304,6 +300,7 @@ class PaiSho:
                     print("There aren't any open gates! Try arranging.")
                     continue
             
+            # PRocess Arranging
             if (move_type == 'A'):
                 oldx = input("Type in the first coordinate (x value) of the piece you want to move. \n")                
 
@@ -323,6 +320,8 @@ class PaiSho:
                 try:
                     self.move(int(oldx), int(oldy), int(newx), int(newy))
                 except MoveException as e:
+                    print("Error in requested move: ", end='')
+                    print(e)
                     continue
                 break
 
