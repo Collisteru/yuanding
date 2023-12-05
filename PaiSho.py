@@ -3,6 +3,7 @@ import square
 import piece
 from colorama import just_fix_windows_console
 from termcolor import colored
+from termcolor import cprint
 import sys
 
 from exceptions import MoveException
@@ -255,10 +256,11 @@ class PaiSho:
                     piece_owner = piece.owner
                     piece_type = piece.type
                     if piece.owner == 0:
-                        piece_color = 'grey' # The Guest has dark tiles
+                        # The Guest has dark pieces
+                        piece_string = colored(piece_type, 'yellow', 'on_grey', attrs=['blink'])
                     else:
-                        piece_color = 'white' # The Host has white tiles
-                    piece_string = colored(piece_type, piece_color)
+                        # The Host has light pieces
+                        piece_string = colored(piece_type, 'black', 'on_white', attrs=['blink', 'bold'])
                     
                     squarestring = colored("[", color) + piece_string + colored("]", color)
 
