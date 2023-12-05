@@ -165,7 +165,6 @@ class PaiSho:
                             j.harmonize(toRight)
 
     def display_harmony_chains(self):
-        print(self.placed)
         harmony_chains = []
         for i in self.placed:
             for j in i.harmonized:
@@ -248,12 +247,15 @@ class PaiSho:
         while True:
             player_string = "Host" if player else "Guest"
             # Ask the player what they want to do
-            input_string = input("Round {1}: It's your turn, {0}. Do you want to Plant or Arrange? Press P to Plant, A to arrange. \n".format(player_string, self.round))
+            input_string = input("Round {1}: It's your turn, {0}. Do you want to Plant or Arrange? Press P to Plant, A to arrange. Press X to quit the game. \n".format(player_string, self.round))
 
             if (input_string == 'p' or input_string == 'P'):
                 move_type = 'P'
             elif (input_string == 'a' or input_string == 'A'):
                 move_type = 'A'
+            elif (input_string == 'x' or input_string == 'X'):
+                print("Goodbye!")
+                sys.exit(0)
             else:
                 print("Unrecognized input format, try again.")
                 continue
