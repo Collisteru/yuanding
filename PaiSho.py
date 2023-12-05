@@ -210,7 +210,28 @@ class PaiSho:
         Displays the board in a user-friendly format
         """
         output = ""
+
+        # Generate alignment gridline
+        gridline =  [i for i in range(-self.radius, self.radius + 1)]
+        x_gridline = ""
+
+        # Print the x gridline
+        x_gridline += "   " # Offset the x gridline to make room for the y gridline
+        for i in gridline:
+                if i < 0:
+                    x_gridline += colored("{0} ".format(i), 'blue')
+                else:
+                    x_gridline += colored(" {0} ".format(i), 'blue')
+
+        # Render the spaces
         for i in range(self.radius*2+1):
+            # Render an entry in the y gridline
+            if gridline[i] < 0:
+                output += colored("{0} ".format(gridline[i]), 'blue')
+            else:
+                output += colored(" {0} ".format(gridline[i]), 'blue')
+
+            # Render each line of spaces
             for j in range(self.radius*2+1):
                 square_type = self.board[j][i].type
                 squarestring = ""
@@ -228,6 +249,7 @@ class PaiSho:
                 else:
                     squarestring = colored("[ ]", color)
                 
+                # Add piece if one should be added
                 if self.board[j][i].piece != None:
                     piece = self.board[j][i].piece
                     piece_owner = piece.owner
@@ -239,11 +261,14 @@ class PaiSho:
                     piece_string = colored(piece_type, piece_color)
                     
                     squarestring = colored("[", color) + piece_string + colored("]", color)
+
+                # TODO: Add harmony if one should be added
                 output += squarestring
             output += "\n"
         print("Harmony Chains: ")
         self.display_harmony_chains()
         print("Board: \n")
+        print(x_gridline)
         print(output)
 
 
