@@ -23,7 +23,7 @@ class PaiSho:
         self.diameter = 2*radius + 1
         self.board = [[square.Square() for i in range(self.diameter)] for j in range(self.diameter)] 
         self.players = 2
-        self.current_player = 1
+        self.current_player = 0
         self.placed = [] # Stores placed pieces
         self.moves = []
         self.game_over = 0
@@ -72,6 +72,9 @@ class PaiSho:
         # Check that there's a piece on (oldx, oldy)
         if not old_square.occupied(): raise MoveException("That square doesn't have a piece on it!")
         else: owner = old_square.piece.owner
+
+        # Check that the piece belongs to the current player
+        if not (owner == self.current_player): raise MoveException("That's not your piece to move!")
 
         # Check that the new square is within the range of the piece
         piecerange = int(old_square.piece.type)
@@ -175,7 +178,7 @@ class PaiSho:
         for i in harmony_chains:
             pieceOne = i[0]
             pieceTwo = i[1]
-            print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- {pieceTwo} ( {pieceTwo.x},{pieceTwo.y} )')
+            print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- {pieceTwo} ( {pieceTwo.x},{pieceTwo.y} ) \n')
 
     # Prints a list of which gates are open
     # And returns a dictionary of which gates are open (key value = 1)
@@ -236,7 +239,7 @@ class PaiSho:
                     squarestring = colored("[", color) + piece_string + colored("]", color)
                 output += squarestring
             output += "\n"
-        print("Harmony Chains: \n")
+        print("Harmony Chains: ")
         self.display_harmony_chains()
         print("Board: \n")
         print(output)
