@@ -14,220 +14,66 @@ def main(argv):
             print("python main.py -r <board radius>")
             sys.exit()
         elif opt == '-r':
-            radius = arg
+            try: int(arg)
+            except: 
+                print("Second argument needs to be an integer.")
+                sys.exit()
+        radius = int(arg)
 
-    game = PaiSho.PaiSho(int(radius)) 
-    
-    # Testing suites below
 
-    # # Add piece
-    # '''
-    # game.add(2,1,1)
-    # game.add(2,-1,1)
-    # game.add(-1,1,1)
-    # game.add(-1,-1,1)
-    # game.add(3,1,0)
-    # game.add(3,-1,0)
-    # game.add(4,1,0)
-    # game.add(4,-1,0)
-    # '''
+    # # Replace this with a test?
+    # game = PaiSho.PaiSho(radius)
     # game.play()
-    # game.display_harmony_chains()
 
-    # game.display_board()
-    
-    # game.check_win_condition()
+    # radius = 6
 
-    # # Move piece one square up
-    # game.move(2,1,2,2)
-    # game.display_board()
+    game = PaiSho.PaiSho(6)
 
-    # # Move piece up one and to the right diagonally
-    # game.move(2,2,3,3)
-    # game.display_board()
+    # Add Guest pieces
 
-    # Testing capture
-    ## Successful Capture
+    game.add(-4,4,0)
 
-    game = PaiSho.PaiSho(3) 
+    game.add(0,4,0)
 
-    game.add(0,3, 0)
-    game.add(0,0, 1)
+    game.add(2,4,0)
 
-    # Guest moves to capture opponent piece
+    game.add(4,4,0)
+
+    game.add(2,2,0)
+
+    game.add(4,2,0)
+
+    game.add(-4,-2,0)
+
+    game.add(0,-2,0)
+
+    # Add Host pieces
+
+    game.add(-2,4,1)
+
+    game.add(-4,2,1)
+
+    game.add(-2,2,1)
+
+    game.add(-4,0,1)
+
+    game.add(2,0,1)
+
+    game.add(4,0,1)
+
+    game.add(2,-2,1)
+
+    game.add(4,-2,1)
+
+    # Check the harmonies created.
+    # There should be 8 Host harmonies and 7 Guest harmonies.
+    # There should be one Guest harmony circle and one Host harmony circle; neither should win.
+
 
     game.play()
 
-    # Unsuccessful Capture
 
-    # game = PaiSho.PaiSho(3) 
-
-    # game.add(0,3, 0)
-    # game.add(0,0, 0)
-
-    # # Guest moves to attempt to capture own piece
-
-    # game.play()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
 
-'''test game (Host win)
-p
-r
-
-p
-u
-
-a
-5
-0
-5
-0
-
-p
-d
-
-a
-5
-0
-5
-0
-
-a
-0
-5
-1
-4
-
-a
-5
-0
-5
-0
-
-a
-0
--5
-1
--4
-
-a
-5
-0
-5
-0
-
-p
-d
-
-a
-5
-0
-5
-0
-
-p
-u
-
-a
-5
-0
-5
-0
-
-a
-0
-5
--1
-4
-
-a
-5
-0
-5
-0
-
-a
-0
--5
--1
--4
-'''
-
-'''test game 2 (guest win)
-p
-u
-
-p
-r
-
-p
-d
-
-a
-5
-0
-5
-0
-
-a
-0
-5
-1
-4
-
-a
-5
-0
-5
-0
-
-a
-0
--5
-1
--4
-
-a
-5
-0
-5
-0
-
-p
-d
-
-a
-5
-0
-5
-0
-
-p
-u
-
-a
-5
-0
-5
-0
-
-a
-0
-5
--1
-4
-
-a
-5
-0
-5
-0
-
-a
-0
--5
--1
--4
-'''

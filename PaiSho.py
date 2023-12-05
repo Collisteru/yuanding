@@ -74,6 +74,8 @@ class PaiSho:
         else: owner = old_square.piece.owner
 
         # Check that the piece belongs to the current player
+        print("Owner: ", owner)
+        print("self.current_player: ", self.current_player)
         if not (owner == self.current_player): raise MoveException("That's not your piece to move!")
 
         # Check that the new square is within the range of the piece
@@ -178,7 +180,7 @@ class PaiSho:
         for i in harmony_chains:
             pieceOne = i[0]
             pieceTwo = i[1]
-            print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- {pieceTwo} ( {pieceTwo.x},{pieceTwo.y} ) \n')
+            print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- {pieceTwo.owner} ( {pieceTwo.x},{pieceTwo.y} ) \n')
 
     # Prints a list of which gates are open
     # And returns a dictionary of which gates are open (key value = 1)
@@ -452,16 +454,16 @@ class PaiSho:
         # Internally we represent the Guest as 0 and the Host as 1
 
         self.display_board()
-        curr_player = 0
+
         while not self.game_over:
-            self.take_turn(curr_player)
+            self.take_turn(self.current_player)
             
             self.check_win_condition()
 
-            if curr_player == 1:
+            if self.current_player == 1:
                 self.round += 1
 
-            curr_player = (curr_player + 1) % 2
+            self.current_player = (self.current_player + 1) % 2
 
         # Display end of game message
         print("Just as the seasons pass away, so must this game of Skud Pai Sho end.")
