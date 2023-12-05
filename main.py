@@ -26,22 +26,22 @@ def main(argv):
     # Testing suites below
 
     # # Add piece
-    '''
-    game.add(2,1,1)
-    game.add(2,-1,1)
-    game.add(-1,1,1)
-    game.add(-1,-1,1)
-    game.add(3,1,0)
-    game.add(3,-1,0)
-    game.add(4,1,0)
-    game.add(4,-1,0)
-    '''
-    game.play()
-    game.display_harmony_chains()
+    # '''
+    # game.add(2,1,1)
+    # game.add(2,-1,1)
+    # game.add(-1,1,1)
+    # game.add(-1,-1,1)
+    # game.add(3,1,0)
+    # game.add(3,-1,0)
+    # game.add(4,1,0)
+    # game.add(4,-1,0)
+    # '''
+    # game.play()
+    # game.display_harmony_chains()
 
-    game.display_board()
+    # game.display_board()
     
-    game.check_win_condition()
+    # game.check_win_condition()
 
     # # Move piece one square up
     # game.move(2,1,2,2)
@@ -51,7 +51,28 @@ def main(argv):
     # game.move(2,2,3,3)
     # game.display_board()
 
+    # Testing capture
+    ## Successful Capture
 
+    game = PaiSho.PaiSho(3) 
+
+    game.add(0,3, 0)
+    game.add(0,0, 1)
+
+    # Guest moves to capture opponent piece
+
+    game.play()
+
+    ## Unsuccessful Capture
+
+    # game = PaiSho.PaiSho(3) 
+
+    # game.add(0,3, 0)
+    # game.add(0,0, 0)
+
+    # # Guest moves to attempt to capture own piece
+
+    # game.play()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

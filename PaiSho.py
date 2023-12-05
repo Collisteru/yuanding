@@ -4,6 +4,11 @@ import piece
 from colorama import just_fix_windows_console
 from termcolor import colored
 import sys
+
+
+# TODO: This should really be moved to an exceptions file
+class MoveException(Exception):
+            print("Invalid move")
     
 class PaiSho:
     def __init__(self, radius):
@@ -64,8 +69,7 @@ class PaiSho:
     def move(self, oldx, oldy, newx, newy):
 
         # Why not?
-        class MoveException(Exception):
-            print("Invalid move")
+        
         # TODO: This MoveException should be caught by all callers!
 
         old_square = self.board[self.radius+oldx][self.radius-oldy]
@@ -76,7 +80,7 @@ class PaiSho:
         else: owner = old_square.piece.owner
 
         # Check that the new square is within the range of the piece
-        piecerange = int(piece.type)
+        piecerange = int(old_square.piece.type)
         accessible = (abs(newx-oldx) + abs(newy-oldy) <= piecerange)
         if not accessible: raise MoveException("Out of range")
 
@@ -90,6 +94,7 @@ class PaiSho:
             else:
                 # A capture occurs
                 self.remove(newx,newy)
+                return
 
 
         # Remove the piece from the old square and add it to the new square
