@@ -12,14 +12,13 @@ class Square:
         """
         self.type = type
 
-        """
-        These are yet to be implemented, but they would represent
-        which flower piece is currently on the piece.
-        Type can be one of the following:
-        P1 - Player 1's piece
-        P2 - Player 2's piece
-        NA - No piece
-        """
+        
+        # Indicates whether there is a harmony going across this square
+        # -1 is the default and means no
+        # 0 means there is a harmony from the Guest (Player 0)
+        # 1 means there is a harmony from the Host (Player 1)
+
+        self.harmony = -1
         if(owner != 'NA'):
             self.piece = piece.Piece(owner)
         else:

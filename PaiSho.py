@@ -105,6 +105,7 @@ class PaiSho:
         return
         
     # Check the board state for any new harmonies and removed harmonies
+    # Update whether every square on the board should have a harmony on it
     def checkHarmonies(self):
 
         for j in self.placed:
@@ -125,7 +126,8 @@ class PaiSho:
             for j in self.placed:
                 if self.radius+j.y == i:
                     horizontal[i].append(j)
-        
+
+        # Harmonize along verticals
         for i in vertical:
             if not i == []:
                 for j in i:
@@ -148,6 +150,7 @@ class PaiSho:
                         if toTop.owner == j.owner:
                             j.harmonize(toTop)
 
+        # Harmonize along horizontals
         for i in horizontal:
             if not i == []:
                 for j in i:
@@ -169,6 +172,7 @@ class PaiSho:
                     if(not toRight == None):
                         if toRight.owner == j.owner:
                             j.harmonize(toRight)
+        self.update_square_harmonies()
 
     def display_harmony_chains(self):
         harmony_chains = []
@@ -182,6 +186,16 @@ class PaiSho:
             pieceOne = i[0]
             pieceTwo = i[1]
             print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- {pieceTwo.owner} ( {pieceTwo.x},{pieceTwo.y} ) \n')
+
+    # Updates the self.harmony value of every square on the board.
+    def update_square_harmonies(self):
+        print("Inside update_square_harmonies")
+        harmony_quadruples = []
+        for i in self.placed:
+            for j in i.harmonized:
+                harmony_quadruples.append((i.x, i.y, j.x, j.y))
+                print((i.x,i.y,j.x,j.y))
+        return harmony_quadruples
 
     # Prints a list of which gates are open
     # And returns a dictionary of which gates are open (key value = 1)
@@ -218,19 +232,21 @@ class PaiSho:
 
         # Print the x gridline
         x_gridline += "   " # Offset the x gridline to make room for the y gridline
+        x_gridline = x_gridline
         for i in gridline:
                 if i < 0:
                     x_gridline += colored("{0} ".format(i), 'blue')
                 else:
                     x_gridline += colored(" {0} ".format(i), 'blue')
 
+        y_gridline = gridline[::-1]
         # Render the spaces
         for i in range(self.radius*2+1):
             # Render an entry in the y gridline
-            if gridline[i] < 0:
-                output += colored("{0} ".format(gridline[i]), 'blue')
+            if y_gridline[i] < 0:
+                output += colored("{0} ".format(y_gridline[i]), 'blue')
             else:
-                output += colored(" {0} ".format(gridline[i]), 'blue')
+                output += colored(" {0} ".format(y_gridline[i]), 'blue')
 
             # Render each line of spaces
             for j in range(self.radius*2+1):
@@ -265,6 +281,7 @@ class PaiSho:
                     squarestring = colored("[", color) + piece_string + colored("]", color)
 
                 # TODO: Add harmony if one should be added
+
                 output += squarestring
             output += "\n"
         print("Harmony Chains: ")
