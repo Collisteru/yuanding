@@ -178,22 +178,9 @@ class PaiSho:
                             j.harmonize(toRight)
         self.update_square_harmonies()
 
-    def display_harmony_chains(self):
-        harmony_chains = []
-        for i in self.placed:
-            for j in i.harmonized:
-                newPair = (i,j)
-                if not (j,i) in harmony_chains:
-                    harmony_chains.append(newPair)
-        
-        for i in harmony_chains:
-            pieceOne = i[0]
-            pieceTwo = i[1]
-            print(f'{pieceOne.owner} ( {pieceOne.x},{pieceOne.y} ) -- {pieceTwo.owner} ( {pieceTwo.x},{pieceTwo.y} ) \n')
 
     # Updates the self.harmony value of every square on the board.
     def update_square_harmonies(self):
-        print("Inside update_square_harmonies")
         harmony_chains = []
         for i in self.placed:
             for j in i.harmonized:
@@ -290,6 +277,7 @@ class PaiSho:
         """
         Displays the board in a user-friendly format
         """
+        emDash = u'\u2014'
         output = ""
 
         # Generate alignment gridline
@@ -350,7 +338,6 @@ class PaiSho:
                     harmony = self.board[j][i].harmony
                     if harmony == 0:
                         # Horizontal Guest Harmony
-                        emDash = u'\u2014'
                         harmony_string = colored('{0}'.format(emDash), 'yellow')
                     elif harmony == 1:
                         # Horizontal Host Harmony
@@ -365,8 +352,12 @@ class PaiSho:
                     squarestring = colored("[", color) + harmony_string + colored("]", color)
                 output += squarestring
             output += "\n"
-        print("Harmony Chains: ")
-        self.display_harmony_chains()
+
+        
+        # print("Harmony Chains: ")
+        # self.display_harmony_chains()
+
+
         print("Board: \n")
         print(x_gridline)
         print(output)
@@ -432,7 +423,7 @@ class PaiSho:
                     print("There aren't any open gates! Try arranging.")
                     continue
             
-            # PRocess Arranging
+            # Process Arranging
             if (move_type == 'A'):
                 oldx = input("Type in the first coordinate (x value) of the piece you want to move. \n")                
 
@@ -593,7 +584,10 @@ class PaiSho:
         # Display end of game message
         print("Just as the seasons pass away, so must this game of Skud Pai Sho end.")
 
-        # TODO: Update this to respond to the value of game.winner
-        print(f'The winner is IMPLEMENT GAME.WINNER!! {self.winner}')
+        if self.winner == 1:
+            print(f'The Host emerges victorious.')
+        elif self.winner == 0:
+            print(f'The Guest emerges victorious.')
+        
 
         sys.exit()

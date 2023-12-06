@@ -272,3 +272,21 @@ game.add(4,-2,1)
 
 
 game.play()
+
+
+### Win Condition Test
+
+# Host Should be able to win in one Turn
+
+game = PaiSho.PaiSho(4)
+
+
+game.add(-1,-1,1)
+
+game.add(-1,1,1)
+
+game.add(1,1,1)
+
+game.add(1,-2,1)
+
+game.play()

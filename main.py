@@ -25,50 +25,18 @@ def main(argv):
     # game = PaiSho.PaiSho(radius)
     # game.play()
 
-    # radius = 6
+    # Host Should be able to win in one Turn
 
-    game = PaiSho.PaiSho(6)
+    game = PaiSho.PaiSho(4)
 
-    # Add Guest pieces
 
-    game.add(-4,4,0)
+    game.add(-1,-1,1)
 
-    game.add(0,4,0)
+    game.add(-1,1,1)
 
-    game.add(2,4,0)
+    game.add(1,1,1)
 
-    game.add(4,4,0)
-
-    game.add(2,2,0)
-
-    game.add(4,2,0)
-
-    game.add(-4,-2,0)
-
-    game.add(0,-2,0)
-
-    # Add Host pieces
-
-    game.add(-2,4,1)
-
-    game.add(-4,2,1)
-
-    game.add(-2,2,1)
-
-    game.add(-4,0,1)
-
-    game.add(2,0,1)
-
-    game.add(4,0,1)
-
-    game.add(2,-2,1)
-
-    game.add(4,-2,1)
-
-    # Check the harmonies created.
-    # There should be 8 Host harmonies and 7 Guest harmonies.
-    # There should be one Guest harmony circle and one Host harmony circle; neither should win.
-
+    game.add(1,-2,1)
 
     game.play()
 
