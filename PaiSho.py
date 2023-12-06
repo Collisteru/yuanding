@@ -51,6 +51,10 @@ class PaiSho:
         self.board[self.radius][self.radius*2].type = 'G'
         self.board[self.radius*2][self.radius].type = 'G'
 
+    # returns a square of the board based on the given x and y value seen by the player
+    def get_square(self, x: int, y: int):
+        return self.board[self.radius+x][self.radius-y]
+    
     # Add a piece to the associated pai sho coordinate
     def add(self, x, y, owner):
         self.placed.append(self.board[self.radius+x][self.radius-y].add(owner,x,y))
@@ -190,12 +194,74 @@ class PaiSho:
     # Updates the self.harmony value of every square on the board.
     def update_square_harmonies(self):
         print("Inside update_square_harmonies")
-        harmony_quadruples = []
+        harmony_chains = []
         for i in self.placed:
             for j in i.harmonized:
-                harmony_quadruples.append((i.x, i.y, j.x, j.y))
-                print((i.x,i.y,j.x,j.y))
-        return harmony_quadruples
+                newPair = (i,j)
+                if not (j,i) in harmony_chains:
+                    harmony_chains.append(newPair)
+        
+        # Update the tiles on the board for each harmony chain
+        harmonized_squares = set()
+        for i in harmony_chains:
+            pieceOne = i[0]
+            pieceTwo = i[1]
+
+            # Get the piece's owner (they should both be owned by the same person)
+            owner = pieceOne.owner
+        
+            firstx = pieceOne.x
+            secondx = pieceTwo.x
+
+            firsty = pieceOne.y
+            secondy = pieceTwo.y
+
+    	    # Vertical Harmony
+            if firstx == secondx:
+                # We must update the tiles that are in the correct row and between the two harmonizing tiles
+                # Generate the range of y values
+                if firsty < secondy:
+                    y_range = list(range(firsty + 1, secondy))
+                else:
+                    y_range = list(range(secondy + 1, firsty))
+
+                for y in y_range:
+
+                    # If the guest owns this harmony, label this as a vertical guest harmony
+                    if owner == 0:
+                        self.get_square(firstx, y).harmony = 2
+                    else: # Otherwise, label this as a vertical host harmony
+                        self.get_square(firstx, y).harmony = 3
+
+                    harmonized_squares.add(self.get_square(firstx,y))
+    
+            # Horizontal Harmony
+            if firsty == secondy:
+                # We must update the tiles that are in the correct column and between the two harmonizing tiles
+                # Generate the range of x values
+                if firstx < secondx:
+                    x_range = list(range(firstx + 1, secondx))
+                else:
+                    x_range = list(range(secondx + 1, firstx))
+
+                for x in x_range:
+
+                    # If the guest owns this harmony, label this as a horizontal guest harmony
+                    if owner == 0:
+                        self.get_square(x, firsty).harmony = 0
+                    else: # Otherwise, label this as a horizontal host harmony
+                        self.get_square(x, firsty).harmony = 1
+
+                    harmonized_squares.add(self.get_square(x,firsty))
+        
+        # Deharmonize all other squares
+        # For all squares, if they're not among the harmonized squares, deharmonize them
+        # This keeps the marks on the board from lingering after hte harmonies that made them have been broken
+        for row in self.board:
+            for square in row:
+                if square not in harmonized_squares:
+                    # Deharmonize this specific square
+                    square.harmony = -1
 
     # Prints a list of which gates are open
     # And returns a dictionary of which gates are open (key value = 1)
@@ -279,9 +345,24 @@ class PaiSho:
                         piece_string = colored(piece_type, 'black', 'on_white', attrs=['blink', 'bold'])
                     
                     squarestring = colored("[", color) + piece_string + colored("]", color)
+                # Add a harmony if one should be added
+                elif self.board[j][i].harmony != -1:
+                    harmony = self.board[j][i].harmony
+                    if harmony == 0:
+                        # Horizontal Guest Harmony
+                        emDash = u'\u2014'
+                        harmony_string = colored('{0}'.format(emDash), 'yellow')
+                    elif harmony == 1:
+                        # Horizontal Host Harmony
+                        harmony_string = colored('{0}'.format(emDash), 'white')
+                    elif harmony == 2:
+                        # Vertical Guest Harmony
+                        harmony_string = colored('|', 'yellow')
+                    elif harmony == 3:
+                        # Vertical Host Harmony
+                        harmony_string = colored('|', 'white')
 
-                # TODO: Add harmony if one should be added
-
+                    squarestring = colored("[", color) + harmony_string + colored("]", color)
                 output += squarestring
             output += "\n"
         print("Harmony Chains: ")

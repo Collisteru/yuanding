@@ -3,7 +3,7 @@ class Piece:
         self.x = x
         self.y = y
         self.type = "3"
-        self.owner = owner #will be either 0 (guest) or 1 (host)
+        self.owner = owner # Will be either 0 (guest) or 1 (host)
         self.harmonized = [] # List of harmonizing pieces
 
     # Remove all harmonies attached to this piece
