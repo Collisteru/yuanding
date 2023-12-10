@@ -27,10 +27,14 @@ def main(argv):
 
     # Host Should be able to win in one Turn
 
-    game = PaiSho.PaiSho(1)
+    game = PaiSho.PaiSho(5)
 
 
     game.add(-1,-0,1)
+
+    game.add(0,0,1)
+
+    game.add(2,2,0)
 
     print("Internal coordinates of each of the squares on the board:")
     for rows in game.board:

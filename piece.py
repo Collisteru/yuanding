@@ -2,7 +2,7 @@ class Piece:
     def __init__(self, owner, x, y):
         self.x = x
         self.y = y
-        self.type = "3"
+        self.type = "1"
         self.owner = owner # Will be either 0 (guest) or 1 (host)
         self.harmonized = [] # List of harmonizing pieces
 

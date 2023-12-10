@@ -478,6 +478,8 @@ class PaiSho:
 
                 for x in possible_x:
                     for y in possible_y:
+                        if (x+y) > piecerange:
+                            continue
                         square = self.get_square(x, y)
                         if square != 0: possible_squares.append(square)
 
@@ -488,7 +490,9 @@ class PaiSho:
                         continue
                     if psquare.occupied():
                         if psquare.piece.owner != player:
-                            moves.append([old_x, old_y, psquare.x, psquare.y])
+                            if [old_x,old_y, psquare.x, psquare.y] not in moves:
+                                moves.append([old_x, old_y, psquare.x, psquare.y])
+                        else: continue
                     else:
                         if [old_x,old_y, psquare.x, psquare.y] not in moves:
                             moves.append([old_x, old_y, psquare.x, psquare.y])
