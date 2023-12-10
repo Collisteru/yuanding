@@ -1,4 +1,5 @@
 import PaiSho
+import randomplayer
 import termcolor
 import sys, getopt
 
@@ -39,11 +40,14 @@ def main(argv):
 
     game.display_board()
 
-    print("All of the valid moves for the Guest:")
-    print(game.get_valid_moves(0))
+    # Let's spin up a new random player to play as the Guest
+    randplay = randomplayer.RandPlayer(0)
 
-    print("All of the valid moves for the Host:")
-    print(game.get_valid_moves(1))
+    randplay.random_move(game)
+    
+    game.display_board()
+
+
 
 
 

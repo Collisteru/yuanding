@@ -381,6 +381,7 @@ class PaiSho:
                 continue
 
             # Process Planting
+            # TODO: There should be a specific function for putting pieces in gates
             if (move_type == 'P'):
                 open_gates = self.check_open_gates()
                 if open_gates:
