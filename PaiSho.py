@@ -557,6 +557,26 @@ class PaiSho:
         '''
 
         pass
+
+    # Specify what kind of game to play 
+    # Modes are specified by numbers which are defined according to the terms of each player
+    # player adds 2 to code sum, ai adds 3, random adds 5
+    # 4 = player vs player
+    # 5 = player vs ai
+    # 7 = player vs random
+    # 6 = ai vs ai
+    # 8 = ai vs random
+    def play(self, mode: int):
+        if mode == 4:
+            self.pvpplay()
+        elif mode == 5:
+            self.pvaiplay()
+        elif mode == 7:
+            self.pvrandplay()
+        elif mode == 6:
+            self.aivaiplay()
+        elif mode == 8:
+            self.aivrandplay()
    
     # Start a game of Skud Pai Sho between two players
     def pvpplay(self):
