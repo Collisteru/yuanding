@@ -478,7 +478,7 @@ class PaiSho:
 
                 for x in possible_x:
                     for y in possible_y:
-                        if (x+y) > piecerange:
+                        if (abs(x-old_x)+abs(y-old_y)) > piecerange:
                             continue
                         square = self.get_square(x, y)
                         if square != 0: possible_squares.append(square)
