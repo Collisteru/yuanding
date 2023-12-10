@@ -38,7 +38,7 @@ def main(argv):
 
     game.add(1,-2,1)
 
-    game.play()
+    game.play(7)
 
 
 

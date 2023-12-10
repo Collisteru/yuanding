@@ -1,6 +1,7 @@
 import math
 import square
 import piece
+import random
 from colorama import just_fix_windows_console
 from termcolor import colored
 from termcolor import cprint
@@ -24,7 +25,7 @@ class PaiSho:
         self.diameter = 2*radius + 1
         self.board = [[square.Square() for i in range(self.diameter)] for j in range(self.diameter)] 
         self.players = 2
-        self.current_player = 0
+        self.current_player = 0 # Whose turn is it? The Guest is represented internally as 0, the Host is represented internally as 1.
         self.placed = [] # Stores placed pieces
         self.moves = []
         self.game_over = 0
@@ -449,6 +450,9 @@ class PaiSho:
         print("Turn played successfully.")
         self.display_board()
 
+    # Get a list in a specific format of valid moves for planting and arranging for the current game and player
+    def get_valid_moves():
+
     # Takes a (<starting node>, <visited nodes: nodes>, <current node>)
     def traversal(self, start, visited, current, depth, cycles, crossings):
 
@@ -566,6 +570,8 @@ class PaiSho:
     # 7 = player vs random
     # 6 = ai vs ai
     # 8 = ai vs random
+
+    # TODO: Maybe we don't need to support *all* these modes?
     def play(self, mode: int):
         if mode == 4:
             self.pvpplay()
@@ -578,8 +584,60 @@ class PaiSho:
         elif mode == 8:
             self.aivrandplay()
    
-    # Start a game of Skud Pai Sho between two players
-    def pvpplay(self):
+    def pvrandplay(self):
+
+        hostorguest = input("Do you want to play as the Host or the Guest? Input H for Host, G for guest. \n")
+
+        if hostorguest == 'H' or hostorguest == 'h':
+            randplayer = random.RandPlayer(0)
+            hplayer = 1
+            rplayer = 0
+        elif hostorguest == 'G' or hostorguest == 'g':
+            randplayer = random.RandPlayer(1)
+            hplayer = 0
+            rplayer = 1
+
+        self.begin_game()
+
+        if hplayer == 0:
+            while not self.game_over:
+                if self.current_player == 0:
+
+                    # Pass the current player and the game board into the random agent so that they can take their turn
+                    self.take_turn(self.current_player)
+                    
+                    self.check_win_condition(rplayer)
+
+                else:
+                    randplayer.take_turn(rplayer, self)
+
+                    self.check_win_condition()
+                    self.round += 1
+
+                # Advance round
+                self.current_player = (self.current_player + 1) % 2
+            self.end_game()
+
+        elif hplayer == 1:
+            while not self.game_over:
+                if self.current_player == 0:
+                    randplayer.take_turn(rplayer, self)
+                    self.check_win_condition()
+                else:
+                    
+                    # Pass the current player and the game state to the random agent so that they can take their turn
+                    self.take_turn(self.current_player)
+                    self.check_win_condition()
+                    self.round += 1
+
+                # Advance round
+                self.current_player = (self.current_player + 1) % 2
+
+            self.end_game()
+
+    # Code to begin the game
+
+    def begin_game(self):
         print("Come in and have a cup of tea. Let's play a game of Skud Pai Sho.")
         
         # The Host plays with light tiles and the Guest plays with dark tiles. The Guest plays first.
@@ -587,16 +645,8 @@ class PaiSho:
 
         self.display_board()
 
-        while not self.game_over:
-            self.take_turn(self.current_player)
-            
-            self.check_win_condition()
-
-            if self.current_player == 1:
-                self.round += 1
-
-            self.current_player = (self.current_player + 1) % 2
-
+    # Code to end the game
+    def end_game(self):
         # Display end of game message
         print("Just as the seasons pass away, so must this game of Skud Pai Sho end.")
 
@@ -607,3 +657,20 @@ class PaiSho:
         
 
         sys.exit()
+
+    # Start a game of Skud Pai Sho between two players
+    def pvpplay(self):
+
+        self.begin_game()
+
+        while not self.game_over:
+            self.take_turn(self.current_player)
+            
+            self.check_win_condition()
+
+            if self.current_player == 1:
+                self.round += 1
+
+            self.current_player = (self.current_player + 1) % 2
+        
+        self.end_game()
