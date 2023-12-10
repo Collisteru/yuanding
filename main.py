@@ -38,7 +38,13 @@ def main(argv):
 
     game.add(1,-2,1)
 
-    game.play(7)
+    game.display_board()
+
+    print("All of the valid moves for the Guest:")
+    game.get_valid_moves(0)
+
+    print("All of the valid moves for the Host:")
+    game.get_valid_moves(1)
 
 
 
