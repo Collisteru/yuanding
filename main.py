@@ -1,4 +1,5 @@
 import PaiSho
+import ai
 import termcolor
 import sys, getopt
 
@@ -27,7 +28,7 @@ def main(argv):
 
     # Host Should be able to win in one Turn
 
-    game = PaiSho.PaiSho(3)
+    game = PaiSho.PaiSho(4)
 
 
     game.add(-1,-0,1)
@@ -39,11 +40,7 @@ def main(argv):
 
     game.display_board()
 
-    print("All of the valid moves for the Guest:")
-    print(game.get_valid_moves(0))
-
-    print("All of the valid moves for the Host:")
-    print(game.get_valid_moves(1))
+    game.play()
 
 
 
