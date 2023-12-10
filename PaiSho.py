@@ -23,7 +23,7 @@ class PaiSho:
 
         self.radius = radius
         self.diameter = 2*radius + 1
-        self.board = [[square.Square(i, j) for i in range(self.diameter)] for j in range(self.diameter)] 
+        self.board = [[square.Square( j - self.radius, self.radius - i) for i in range(self.diameter)] for j in range(self.diameter)] 
         self.players = 2
         self.current_player = 0 # Whose turn is it? The Guest is represented internally as 0, the Host is represented internally as 1.
         self.placed = [] # Stores placed pieces
@@ -271,7 +271,6 @@ class PaiSho:
         left_string = "Left" if left_open else "" 
         right_string = "Right" if right_open else ""
     
-        print("The following gates are open: {0} {1} {2} {3}".format(up_string, right_string, down_string, left_string))
         return {"Up": up_open, "Right": right_open, "Down": down_open, "Left": left_open}
 
     def display_board(self):
@@ -462,9 +461,9 @@ class PaiSho:
         open_gates = self.check_open_gates()
 
         # Generate valid moves for Arranging
+        moves = []
         for piece in self.placed:
             if piece.owner == player:
-                moves = []
                 old_x = piece.x
                 old_y = piece.y
 
@@ -476,6 +475,7 @@ class PaiSho:
 
                 possible_squares = []
 
+
                 for x in possible_x:
                     for y in possible_y:
                         square = self.get_square(x, y)
@@ -483,35 +483,18 @@ class PaiSho:
 
                 # Check if each square is occupied, and if so, by a piece of which player?
                 for psquare in possible_squares:
+                    # Ignore the square if it exists in an unplayable region
+                    if psquare.type == 'B':
+                        continue
                     if psquare.occupied():
-                        if psquare.piece_owner != player:
+                        if psquare.piece.owner != player:
                             moves.append([old_x, old_y, psquare.x, psquare.y])
                     else:
-                        moves.append([old_x, old_y, psquare.x, psquare.y])
+                        if [old_x,old_y, psquare.x, psquare.y] not in moves:
+                            moves.append([old_x, old_y, psquare.x, psquare.y])
 
         # Return possible moves for Placing (first category) and arranging (Second Category)
         return (open_gates, moves)
-
-                            
-
-
-        # Check if the new square is occupied
-        occupied = new_square.occupied()
-        if occupied:
-            # If the owner of the piece that's moving in is the same
-            # as the owner of the piece that's already there:
-            if new_square.piece.owner == owner:
-                raise MoveException("Occupied by another one of your pieces!")
-            else:
-                # A capture occurs
-                self.remove(newx,newy)
-                self.add(newx,newy, owner)
-                self.remove(oldx,oldy)
-                return
-
-        pass
-
-
 
     # Takes a (<starting node>, <visited nodes: nodes>, <current node>)
     def traversal(self, start, visited, current, depth, cycles, crossings):

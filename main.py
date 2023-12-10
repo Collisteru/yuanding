@@ -27,24 +27,23 @@ def main(argv):
 
     # Host Should be able to win in one Turn
 
-    game = PaiSho.PaiSho(4)
+    game = PaiSho.PaiSho(1)
 
 
-    game.add(-1,-1,1)
+    game.add(-1,-0,1)
 
-    game.add(-1,1,1)
-
-    game.add(1,1,1)
-
-    game.add(1,-2,1)
+    print("Internal coordinates of each of the squares on the board:")
+    for rows in game.board:
+        for square in rows:
+            print(square.x, square.y)    
 
     game.display_board()
 
     print("All of the valid moves for the Guest:")
-    game.get_valid_moves(0)
+    print(game.get_valid_moves(0))
 
     print("All of the valid moves for the Host:")
-    game.get_valid_moves(1)
+    print(game.get_valid_moves(1))
 
 
 
