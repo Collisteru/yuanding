@@ -53,6 +53,8 @@ class AI:
 
     # The selected player will be deemed "more winning" if utility is positive
     def calculate_utility(self, game, player = 0):
+        if self.terminal_test(game):
+            return np.inf * (game.winner * 2 - 1)
         utility = 0 
         viewed = [] #A list of viewed pieces
         for currentPiece in game.placed:
