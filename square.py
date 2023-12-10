@@ -18,8 +18,8 @@ class Square:
         # 0 means there is a horizontal harmony from the Guest (Player 0)
         # 1 means there is a horizontal harmony from the Host (Player 1)
         # 2 means there is a vertical harmony from the Guest
-        # 3 means htere is a vertical harmony from the Host
-        
+        # 3 means there is a vertical harmony from the Host
+
         self.harmony = -1
         if(owner != 'NA'):
             self.piece = piece.Piece(owner)

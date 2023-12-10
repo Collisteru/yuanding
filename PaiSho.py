@@ -178,7 +178,6 @@ class PaiSho:
                             j.harmonize(toRight)
         self.update_square_harmonies()
 
-
     # Updates the self.harmony value of every square on the board.
     def update_square_harmonies(self):
         harmony_chains = []
@@ -272,7 +271,6 @@ class PaiSho:
         print("The following gates are open: {0} {1} {2} {3}".format(up_string, right_string, down_string, left_string))
         return {"Up": up_open, "Right": right_open, "Down": down_open, "Left": left_open}
 
-    
     def display_board(self):
         """
         Displays the board in a user-friendly format
@@ -361,7 +359,6 @@ class PaiSho:
         print("Board: \n")
         print(x_gridline)
         print(output)
-
 
     def take_turn(self, player):
         # Input loop
@@ -560,10 +557,9 @@ class PaiSho:
         '''
 
         pass
-        
-
-    # Start a game of Skud Pai Sho
-    def play(self):
+   
+    # Start a game of Skud Pai Sho between two players
+    def pvpplay(self):
         print("Come in and have a cup of tea. Let's play a game of Skud Pai Sho.")
         
         # The Host plays with light tiles and the Guest plays with dark tiles. The Guest plays first.
