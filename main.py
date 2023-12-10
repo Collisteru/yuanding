@@ -28,7 +28,7 @@ def main(argv):
 
     # Host Should be able to win in one Turn
 
-    game = PaiSho.PaiSho(3)
+    game = PaiSho.PaiSho(4)
 
 
     game.add(-1,-0,1)
