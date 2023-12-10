@@ -31,16 +31,14 @@ def main(argv):
     game = PaiSho.PaiSho(4)
 
 
-    game.add(-1,-0,1)
+    game.add(-1,0,1)
 
-    game.add(0,0,1)
+    game.add(0,1,1)
 
     game.add(1,1,0)
   
-
     game.display_board()
 
-    game.play()
 
 
 
