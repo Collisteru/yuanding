@@ -23,7 +23,7 @@ class PaiSho:
 
         self.radius = radius
         self.diameter = 2*radius + 1
-        self.board = [[square.Square() for i in range(self.diameter)] for j in range(self.diameter)] 
+        self.board = [[square.Square(i, j) for i in range(self.diameter)] for j in range(self.diameter)] 
         self.players = 2
         self.current_player = 0 # Whose turn is it? The Guest is represented internally as 0, the Host is represented internally as 1.
         self.placed = [] # Stores placed pieces
@@ -53,8 +53,10 @@ class PaiSho:
         self.board[self.radius*2][self.radius].type = 'G'
 
     # returns a square of the board based on the given x and y value seen by the player
+    # Returns zero if there's no actual square at that x and y coordinate
     def get_square(self, x: int, y: int):
-        return self.board[self.radius+x][self.radius-y]
+        try: return self.board[self.radius+x][self.radius-y]
+        except: return 0
     
     # Add a piece to the associated pai sho coordinate
     def add(self, x, y, owner):
@@ -450,8 +452,66 @@ class PaiSho:
         print("Turn played successfully.")
         self.display_board()
 
-    # Get a list in a specific format of valid moves for planting and arranging for the current game and player
-    def get_valid_moves():
+    # Get a list in a specific format of valid moves for planting and arranging for the current game and the given player
+    def get_valid_moves(self, player):
+
+        if (player != 0 and player != 1):
+            raise Exception("Incorrect player number.")
+        
+        # Generate valid moves for Planting
+        open_gates = self.check_open_gates()
+
+        # Generate valid moves for Arranging
+        for piece in self.placed:
+            if piece.owner == player:
+                moves = []
+                old_x = piece.x
+                old_y = piece.y
+
+                # Generate possible squares based on range
+                piecerange = int(piece.type)
+
+                possible_x = list(range(old_x - piecerange, old_x + piecerange + 1))
+                possible_y = list(range(old_y - piecerange, old_y + piecerange + 1))
+
+                possible_squares = []
+
+                for x in possible_x:
+                    for y in possible_y:
+                        square = self.get_square(x, y)
+                        if square != 0: possible_squares.append(square)
+
+                # Check if each square is occupied, and if so, by a piece of which player?
+                for psquare in possible_squares:
+                    if psquare.occupied():
+                        if psquare.piece_owner != player:
+                            moves.append([old_x, old_y, psquare.x, psquare.y])
+                    else:
+                        moves.append([old_x, old_y, psquare.x, psquare.y])
+
+        # Return possible moves for Placing (first category) and arranging (Second Category)
+        return (open_gates, moves)
+
+                            
+
+
+        # Check if the new square is occupied
+        occupied = new_square.occupied()
+        if occupied:
+            # If the owner of the piece that's moving in is the same
+            # as the owner of the piece that's already there:
+            if new_square.piece.owner == owner:
+                raise MoveException("Occupied by another one of your pieces!")
+            else:
+                # A capture occurs
+                self.remove(newx,newy)
+                self.add(newx,newy, owner)
+                self.remove(oldx,oldy)
+                return
+
+        pass
+
+
 
     # Takes a (<starting node>, <visited nodes: nodes>, <current node>)
     def traversal(self, start, visited, current, depth, cycles, crossings):

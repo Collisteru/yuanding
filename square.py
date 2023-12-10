@@ -2,7 +2,7 @@
 import piece
 
 class Square:
-    def __init__(self, owner='NA', type='_'):
+    def __init__(self, x, y, owner='NA', type='_',):
         """
         Type can be one of the following:
         B = Blank:   These are unplayable regions
@@ -12,6 +12,9 @@ class Square:
         """
         self.type = type
 
+        # The coordinates of the square
+        self.x = x
+        self.y = y
         
         # Indicates whether there is a harmony going across this square
         # -1 is the default and means no
