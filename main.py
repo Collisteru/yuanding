@@ -1,4 +1,5 @@
 import PaiSho
+import ai
 import termcolor
 import sys, getopt
 
@@ -29,7 +30,6 @@ def main(argv):
 
     game = PaiSho.PaiSho(4)
 
-
     game.add(-1,-1,1)
 
     game.add(-1,1,1)
@@ -38,7 +38,15 @@ def main(argv):
 
     game.add(1,-2,1)
 
-    game.play()
+    game.add(1,-3,0)
+
+    game.display_board()
+
+    eval = ai.AI()
+
+    eval.calculate_utility(game)
+
+    #game.play()
 
 
 

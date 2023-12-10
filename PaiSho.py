@@ -178,6 +178,8 @@ class PaiSho:
                             j.harmonize(toRight)
         self.update_square_harmonies()
 
+        
+
     # Updates the self.harmony value of every square on the board.
     def update_square_harmonies(self):
         harmony_chains = []
