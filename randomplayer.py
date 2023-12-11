@@ -23,6 +23,9 @@ class RandPlayer:
         elif player == 1:
             print("The Host takes a random turn.")
             self.random_move(game)
+        
+        print("The Guest has made a random move.") if self.player == 0 else print("The Host has made a random move.")
+
         pass 
 
     # Randomly choose to make an arrangement move or a planting move
@@ -60,7 +63,6 @@ class RandPlayer:
                 self.random_plant(game, valid_moves)
 
 
-        print("The Guest has made a random move.") if self.player == 0 else print("The Host has made a random move.")
 
     # Make a random arrangement move
     def random_arrange(self, game, valid_moves):
@@ -71,6 +73,7 @@ class RandPlayer:
         # Parse given arrangement (all required checks should have already been made)
         game.move(valid_moves[0], valid_moves[1], valid_moves[2], valid_moves[3])
 
+        
     # Make a random planting move
     def random_plant(self, game, valid_moves):
 

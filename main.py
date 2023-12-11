@@ -1,5 +1,6 @@
 import PaiSho
 import randomplayer
+import ai
 import termcolor
 import sys, getopt
 
@@ -40,16 +41,7 @@ def main(argv):
 
     game.display_board()
 
-    # Let's spin up a new random player to play as the Guest
-    randplay = randomplayer.RandPlayer(0)
-
-    randplay.random_move(game)
-    
-    game.display_board()
-
-
-
-
+    game.play(7)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
