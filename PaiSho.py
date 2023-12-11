@@ -83,8 +83,6 @@ class PaiSho:
         else: owner = old_square.piece.owner
 
         # Check that the piece belongs to the current player
-        print("Owner: ", owner)
-        print("self.current_player: ", self.current_player)
         if not (owner == self.current_player): raise MoveException("That's not your piece to move!")
 
         # Check that the new square is within the range of the piece
@@ -663,11 +661,15 @@ class PaiSho:
 
                     # Pass the current player and the game board into the random agent so that they can take their turn
                     self.take_turn(self.current_player)
+
+                    self.display_board()
                     
-                    self.check_win_condition(rplayer)
+                    self.check_win_condition()
 
                 else:
                     randplayer.take_turn(rplayer, self)
+
+                    self.display_board()
 
                     self.check_win_condition()
                     self.round += 1
@@ -680,11 +682,17 @@ class PaiSho:
             while not self.game_over:
                 if self.current_player == 0:
                     randplayer.take_turn(rplayer, self)
+
+                    self.display_board()
+
                     self.check_win_condition()
                 else:
                     
                     # Pass the current player and the game state to the random agent so that they can take their turn
                     self.take_turn(self.current_player)
+
+                    self.display_board()
+
                     self.check_win_condition()
                     self.round += 1
 

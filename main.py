@@ -37,6 +37,12 @@ def main(argv):
     game.add(0,0,1)
 
     game.add(1,1,0)
+
+    game.add(3,2,0)
+
+    game.add(3,1,0)
+
+    game.add(-1,-1,0)
   
 
     game.display_board()

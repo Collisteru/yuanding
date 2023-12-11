@@ -24,8 +24,6 @@ class RandPlayer:
             print("The Host takes a random turn.")
             self.random_move(game)
         
-        print("The Guest has made a random move.") if self.player == 0 else print("The Host has made a random move.")
-
         pass 
 
     # Randomly choose to make an arrangement move or a planting move
@@ -36,10 +34,13 @@ class RandPlayer:
 
         # Can we Plant?
         ogates = valid_moves[0]
-        can_plant = (ogates['Up'] or ogates['Right'] or ogates['Down'] or ogates['Left'])
+        if not ogates:
+            can_plant = 0
+        else:
+            can_plant = 1
 
         # Can we arrange?
-        can_arrange = 1 if len(valid_moves[1] != 0) else 0
+        can_arrange = 1 if (len(valid_moves[1]) != 0) else 0
 
         # First, the random player chooses whether to plant or to arrange.
         # If it can only plant, it does that. If it can only arrange, it does that.
@@ -50,14 +51,14 @@ class RandPlayer:
             print("The Guest can't make any moves.") if self.player == 0 else print("The Host can't make any moves.")
 
         if can_arrange and not can_plant:
-            self.random_arrange(game)
+            self.random_arrange(game, valid_moves)
 
         if can_plant and not can_arrange:
-            self.random_plant(game)
+            self.random_plant(game, valid_moves)
 
         if can_plant and can_arrange:
             # In this case, the player plants 25% of the time and arranges 75% of the time.
-            if random.random() < 0.75:
+            if random.random() < 0.5:
                 self.random_arrange(game, valid_moves)
             else:
                 self.random_plant(game, valid_moves)
@@ -68,10 +69,10 @@ class RandPlayer:
     def random_arrange(self, game, valid_moves):
         arrangements = valid_moves[1]
 
-        chosen_arrangement = random.choice(arrangements)
+        choice = random.choice(arrangements)
 
         # Parse given arrangement (all required checks should have already been made)
-        game.move(valid_moves[0], valid_moves[1], valid_moves[2], valid_moves[3])
+        game.move(choice[0], choice[1], choice[2], choice[3])
 
         
     # Make a random planting move
@@ -96,14 +97,13 @@ class RandPlayer:
 
         # TODO: There should be a specific function for putting pieces in gates
         if chosen_gate == 'Up':
-            if open_gates["Up"]:
-                game.add(0, self.radius, self.player)
+            game.add(0, game.radius, self.player)
 
-            if open_gates["Down"]:
-                game.add(0, -self.radius, self.player)
+        if chosen_gate == 'Down':
+            game.add(0, -game.radius, self.player)
 
-            if open_gates["Right"]:
-                game.add(self.radius, 0, self.player)
+        if chosen_gate == 'Right':
+            game.add(game.radius, 0, self.player)
 
-            if open_gates["Left"]:
-                game.add(-self.radius, 0, self.player)
+        if chosen_gate == 'Left':
+            game.add(-game.radius, 0, self.player)
