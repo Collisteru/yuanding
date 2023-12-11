@@ -1,4 +1,5 @@
 import PaiSho
+import randomplayer
 import ai
 import termcolor
 import sys, getopt

@@ -6,6 +6,7 @@ from colorama import just_fix_windows_console
 from termcolor import colored
 from termcolor import cprint
 import sys
+import randomplayer
 
 from exceptions import MoveException
 
@@ -383,6 +384,7 @@ class PaiSho:
                 continue
 
             # Process Planting
+            # TODO: There should be a specific function for putting pieces in gates
             if (move_type == 'P'):
                 open_gates = self.check_open_gates()
                 if open_gates:
@@ -616,9 +618,11 @@ class PaiSho:
     # player adds 2 to code sum, ai adds 3, random adds 5
     # 4 = player vs player
     # 5 = player vs ai
-    # 7 = player vs random
     # 6 = ai vs ai
+    # 7 = player vs random
     # 8 = ai vs random
+    # 10 = random vs random
+
 
     # TODO: Maybe we don't need to support *all* these modes?
     def play(self, mode: int):
@@ -632,17 +636,22 @@ class PaiSho:
             self.aivaiplay()
         elif mode == 8:
             self.aivrandplay()
+        elif mode == 10:
+            self.randvrandplay()
+        else:
+            print("Invalid game code provided!")
+            return
    
     def pvrandplay(self):
 
         hostorguest = input("Do you want to play as the Host or the Guest? Input H for Host, G for guest. \n")
 
         if hostorguest == 'H' or hostorguest == 'h':
-            randplayer = random.RandPlayer(0)
+            randplayer = randomplayer.RandPlayer(0)
             hplayer = 1
             rplayer = 0
         elif hostorguest == 'G' or hostorguest == 'g':
-            randplayer = random.RandPlayer(1)
+            randplayer = randomplayer.RandPlayer(1)
             hplayer = 0
             rplayer = 1
 
@@ -654,11 +663,15 @@ class PaiSho:
 
                     # Pass the current player and the game board into the random agent so that they can take their turn
                     self.take_turn(self.current_player)
+
+                    self.display_board()
                     
-                    self.check_win_condition(rplayer)
+                    self.check_win_condition()
 
                 else:
                     randplayer.take_turn(rplayer, self)
+
+                    self.display_board()
 
                     self.check_win_condition()
                     self.round += 1
@@ -671,11 +684,17 @@ class PaiSho:
             while not self.game_over:
                 if self.current_player == 0:
                     randplayer.take_turn(rplayer, self)
+
+                    self.display_board()
+
                     self.check_win_condition()
                 else:
                     
                     # Pass the current player and the game state to the random agent so that they can take their turn
                     self.take_turn(self.current_player)
+
+                    self.display_board()
+
                     self.check_win_condition()
                     self.round += 1
 
