@@ -83,7 +83,7 @@ class AI:
                 for i in currentPiece.harmonized:
                     utility += multiplier * self.utilRecur(currentPiece, i, viewed, [])
 
-        print(f'utility is {utility}')
+        # print(f'utility is {utility}')
         return utility
 
         pass
@@ -104,20 +104,18 @@ class AI:
 
         def max_value(state, depth):
             if (self.terminate(state)) or depth > maxDepth:
-                print("HIII")
                 return self.calculate_utility(state, player)
             v = -np.inf
             legalMoves = state.get_valid_moves(state.current_player)
-            print(state.current_player)
-            print(legalMoves)
-            print("AHHHHHHHHHHHHHHH")
+            # print(state.current_player)
+            # print(legalMoves)
             for a in legalMoves[1]: #iterate through all arrange moves
                 # "play" out the current move.
                 branch = copy.deepcopy(state)
-                print(f'P{state.current_player}: Going from ({a[0]},{a[1]}) to ({a[2]},{a[3]})')
+                # print(f'P{state.current_player}: Going from ({a[0]},{a[1]}) to ({a[2]},{a[3]})')
                 branch.move(a[0],a[1],a[2],a[3])
-                print("in max")
-                branch.display_board()
+                # print("in max")
+                # branch.display_board()
 
                 # swap players after move for purpose of get_valid_moves
                 branch.current_player = (branch.current_player+1)%2
@@ -158,16 +156,16 @@ class AI:
                 return self.calculate_utility(state, player)
             v = np.inf
             legalMoves = state.get_valid_moves(state.current_player)
-            print(state.current_player)
-            print(legalMoves)
+            # print(state.current_player)
+            # print(legalMoves)
             for a in legalMoves[1]: #iterate through all arrange moves
                 # "play" out the current move.
 
                 branch = copy.deepcopy(state)
-                print(f'P{state.current_player}: Going from ({a[0]},{a[1]}) to ({a[2]},{a[3]})')
+                # print(f'P{state.current_player}: Going from ({a[0]},{a[1]}) to ({a[2]},{a[3]})')
                 branch.move(a[0],a[1],a[2],a[3])
-                print("In min")
-                branch.display_board()
+                # print("In min")
+                # branch.display_board()
 
                 # swap players after move for purpose of get_valid_moves
                 branch.current_player = (branch.current_player+1)%2
@@ -179,8 +177,8 @@ class AI:
                 branch.add(0,state.radius,state.current_player)
                 branch.current_player = (branch.current_player+1)%2
                 v = min(v, max_value(branch, depth+1))
-                print("Planting")
-                branch.display_board()
+                #print("Planting")
+                # branch.display_board()
 
             # West gate
             if not state.board[0][game.radius].occupied():
@@ -188,8 +186,8 @@ class AI:
                 branch.add(-1 * state.radius,0,state.current_player)
                 branch.current_player = (branch.current_player+1)%2
                 v = min(v, max_value(branch, depth+1))
-                print("Planting")
-                branch.display_board()
+                # print("Planting")
+                # branch.display_board()
 
             # South gate
             if not state.board[game.radius][game.radius*2].occupied():
@@ -197,8 +195,8 @@ class AI:
                 branch.add(0,-1 * state.radius,state.current_player)
                 branch.current_player = (branch.current_player+1)%2
                 v = min(v, max_value(branch, depth+1))
-                print("Planting")
-                branch.display_board()
+                # print("Planting")
+                # branch.display_board()
 
             # East gate
             if not state.board[game.radius*2][game.radius].occupied():
@@ -206,8 +204,8 @@ class AI:
                 branch.add(state.radius,0,state.current_player)
                 branch.current_player = (branch.current_player+1)%2
                 v = min(v, max_value(branch, depth+1))
-                print("Planting")
-                branch.display_board()
+                # print("Planting")
+                # branch.display_board()
 
             return v
 
@@ -240,8 +238,8 @@ class AI:
             branch.add(0,game.radius,game.current_player)
             branch.current_player = (branch.current_player+1)%2
             eval = min_value(branch, 0)
-            print("Planting")
-            branch.display_board()
+            # print("Planting")
+            # branch.display_board()
 
             if eval > maxedUtil:
                 bestMove = a
@@ -253,8 +251,8 @@ class AI:
             branch.add(-1 * game.radius,0,game.current_player)
             branch.current_player = (branch.current_player+1)%2
             eval = min_value(branch, 0)
-            print("Planting")
-            branch.display_board()
+            # print("Planting")
+            # branch.display_board()
 
             if eval > maxedUtil:
                 bestMove = a
@@ -266,8 +264,8 @@ class AI:
             branch.add(0,-1 * game.radius,game.current_player)
             branch.current_player = (branch.current_player+1)%2
             eval = min_value(branch, 0)
-            print("Planting")
-            branch.display_board()
+            # print("Planting")
+            # branch.display_board()
 
             if eval > maxedUtil:
                 bestMove = a
@@ -279,8 +277,8 @@ class AI:
             branch.add(game.radius,0,game.current_player)
             branch.current_player = (branch.current_player+1)%2
             eval = min_value(branch, 0)
-            print("Planting")
-            branch.display_board()
+            # print("Planting")
+            # branch.display_board()
 
             if eval > maxedUtil:
                 bestMove = a

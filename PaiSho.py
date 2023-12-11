@@ -266,7 +266,7 @@ class PaiSho:
         right_open = not self.board[2 * self.radius][self.radius].occupied()
 
         if not (up_open or down_open or left_open or right_open):
-            print("There are no open gates.")
+            # print("There are no open gates.")
             return 0
     
         up_string = "Up" if up_open else ""
@@ -495,7 +495,7 @@ class PaiSho:
 
                         square = self.get_square(x, y)
 
-                        print("This square is valid. It has the coordines x = {0} and y = {1} according to its class.".format(square.x, square.y))
+                        # print("This square is valid. It has the coordines x = {0} and y = {1} according to its class.".format(square.x, square.y))
                         if square != 0: possible_squares.append(square)
             # Check if each square is occupied, and if so, by a piece of which player?
                 for psquare in possible_squares:
