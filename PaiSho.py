@@ -471,7 +471,7 @@ class PaiSho:
                 old_x = piece.x
                 old_y = piece.y
 
-                # Generate possible squares based on range
+                # Generate possible squares based on range of the piece
                 piecerange = int(piece.type)
 
                 possible_x = list(range(old_x - piecerange, old_x + piecerange + 1))
@@ -482,12 +482,22 @@ class PaiSho:
 
                 for x in possible_x:
                     for y in possible_y:
-                        if (abs(x-old_x)+abs(y-old_y)) > piecerange:
-                            continue
-                        square = self.get_square(x, y)
-                        if square != 0: possible_squares.append(square)
 
-                # Check if each square is occupied, and if so, by a piece of which player?
+                        # Ensure that these values are valid given the boundaries of the board
+                        if ( abs(x) > self.radius) or ( abs(y) > self.radius) or ((abs(x)+abs(y)) >= (self.radius * 2 - 1)):
+                            break
+
+                        #print("Considering the possible x: {0}, and the possible y: {1}".format(x, y))
+
+                        # Carve the possible moves into a diamond shape around the piece's range (the previous work only considers the rectangle shape)
+                        if ((abs(x-old_x)+abs(y-old_y)) > piecerange):
+                            continue
+
+                        square = self.get_square(x, y)
+
+                        print("This square is valid. It has the coordines x = {0} and y = {1} according to its class.".format(square.x, square.y))
+                        if square != 0: possible_squares.append(square)
+            # Check if each square is occupied, and if so, by a piece of which player?
                 for psquare in possible_squares:
                     # Ignore the square if it exists in an unplayable region
                     if psquare.type == 'B':

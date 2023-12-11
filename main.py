@@ -32,20 +32,25 @@ def main(argv):
     game = PaiSho.PaiSho(4)
 
 
+    game.add(0,4,1)
+
     game.add(-1,0,1)
 
-    game.add(0,1,1)
+    game.add(-4,0,0)
 
-    game.add(1,1,0)
+    #game.add(1,1,0)
   
     game.display_board()
 
     game.current_player = 1
 
+    print(game.get_valid_moves(0))
+
     MoveMaker = ai.AI()
 
     MoveMaker.minmax_decision(game, 1)
 
+    game.display_board()
 
 
 if __name__ == "__main__":
