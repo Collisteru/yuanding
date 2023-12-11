@@ -82,8 +82,8 @@ class PaiSho:
         else: owner = old_square.piece.owner
 
         # Check that the piece belongs to the current player
-        print("Owner: ", owner)
-        print("self.current_player: ", self.current_player)
+        #print("Owner: ", owner)
+        #print("self.current_player: ", self.current_player)
         if not (owner == self.current_player): raise MoveException("That's not your piece to move!")
 
         # Check that the new square is within the range of the piece

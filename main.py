@@ -39,6 +39,11 @@ def main(argv):
   
     game.display_board()
 
+    game.current_player = 1
+
+    MoveMaker = ai.AI()
+
+    MoveMaker.minmax_decision(game, 1)
 
 
 

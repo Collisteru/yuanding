@@ -55,7 +55,7 @@ class AI:
 
     # The selected player will be deemed "more winning" if utility is positive
     def calculate_utility(self, game, player = 0):
-        if self.terminal_test(game):
+        if self.terminate(game):
             return np.inf * (game.winner * 2 - 1)
         utility = 0 
         viewed = [] #A list of viewed pieces
@@ -76,9 +76,6 @@ class AI:
                 utility.append(PlayerUtil(currentPieceOwner))
                 currUtil = len(utility)-1
             '''
-
-            
-            
             if not currentPiece in viewed:
                 multiplier = (currentPiece.owner == player) * 2 - 1        
                 viewed.append(currentPiece)
@@ -86,32 +83,36 @@ class AI:
                 for i in currentPiece.harmonized:
                     utility += multiplier * self.utilRecur(currentPiece, i, viewed, [])
 
-        print(utility)
+        print(f'utility is {utility}')
+        return utility
 
         pass
+
+    def terminate(self, state):
+        if state.game_over == 1:
+            print("game over!")
+        return state.game_over == 1
 
 # Checks if this game state is a terminal node
-    def terminal_test(game):
-        if game.game_over == 1:
-            return True
-        pass
 
-    def minmax_decision(self, game):
+    def minmax_decision(self, game, maxDepth = 3):
         '''
         Given a state in a game, calculate the best move by searching
         forward all the way to the terminal states. [Figure 5.3]
         '''
-        maxDepth = 3
         player = game.current_player
 
         def max_value(state, depth):
-            if self.terminal_test(state) or depth > maxDepth:
+            if (self.terminate(state)) or depth > maxDepth:
                 return self.calculate_utility(state, player)
             v = -np.inf
             legalMoves = state.get_valid_moves(state.current_player)
+            print(legalMoves)
             for a in legalMoves[1]: #iterate through all arrange moves
                 # "play" out the current move.
                 branch = copy.deepcopy(state)
+                branch.display_board()
+                print(f'Going from ({a[0]},{a[1]}) to ({a[2]},{a[3]})')
                 branch.move(a[0],a[1],a[2],a[3])
 
                 # swap players after move for purpose of get_valid_moves
@@ -119,42 +120,45 @@ class AI:
                 v = max(v, min_value(branch, depth+1))
 
             # North gate
-            if not state.board[self.radius][0].occupied:
+            if not state.board[game.radius][0].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(0,state.radius,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = max(v, min_value(game.result(state, a), depth+1))
+                v = max(v, min_value(branch, depth+1))
 
             # West gate
-            if not state.board[0][self.radius].occupied:
+            if not state.board[0][game.radius].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(-1 * state.radius,0,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = max(v, min_value(game.result(state, a), depth+1))
+                v = max(v, min_value(branch, depth+1))
 
             # South gate
-            if not state.board[self.radius][self.radius*2].occupied:
+            if not state.board[game.radius][game.radius*2].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(0,-1 * state.radius,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = max(v, min_value(game.result(state, a), depth+1))
+                v = max(v, min_value(branch, depth+1))
 
             # East gate
-            if not state.board[self.radius*2][self.radius].occupied:
+            if not state.board[game.radius*2][game.radius].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(state.radius,0,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = max(v, min_value(game.result(state, a), depth+1))
+                v = max(v, min_value(branch, depth+1))
 
             return v
 
         def min_value(state, depth):
-            if self.terminal_test(state) or depth > maxDepth:
+            if (self.terminate(state)) or (depth > maxDepth):
                 return self.calculate_utility(state, player)
             v = np.inf
             legalMoves = state.get_valid_moves(state.current_player)
+            print(state.current_player)
+            print(legalMoves)
             for a in legalMoves[1]: #iterate through all arrange moves
                 # "play" out the current move.
+
                 branch = copy.deepcopy(state)
                 branch.move(a[0],a[1],a[2],a[3])
 
@@ -163,32 +167,32 @@ class AI:
                 v = min(v, max_value(branch, depth+1))
 
             # North gate
-            if not state.board[self.radius][0].occupied:
+            if not state.board[game.radius][0].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(0,state.radius,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = min(v, max_value(game.result(state, a), depth+1))
+                v = min(v, max_value(branch, depth+1))
 
             # West gate
-            if not state.board[0][self.radius].occupied:
+            if not state.board[0][game.radius].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(-1 * state.radius,0,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = min(v, max_value(game.result(state, a), depth+1))
+                v = min(v, max_value(branch, depth+1))
 
             # South gate
-            if not state.board[self.radius][self.radius*2].occupied:
+            if not state.board[game.radius][game.radius*2].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(0,-1 * state.radius,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = min(v, max_value(game.result(state, a), depth+1))
+                v = min(v, max_value(branch, depth+1))
 
             # East gate
-            if not state.board[self.radius*2][self.radius].occupied:
+            if not state.board[game.radius*2][game.radius].occupied:
                 branch = copy.deepcopy(state)
                 branch.add(state.radius,0,state.current_player)
                 branch.player = (branch.player+1)%2
-                v = min(v, max_value(game.result(state, a), depth+1))
+                v = min(v, max_value(branch, depth+1))
 
             return v
 
@@ -206,50 +210,58 @@ class AI:
             # swap players after move for purpose of get_valid_moves
             branch.current_player = (branch.current_player+1)%2
 
-            eval = min_value(branch, 1)
+            #branch.display_board()
+
+            eval = min_value(branch, 0)
+            #print(eval)
 
             if eval > maxedUtil:
                 bestMove = a
+                maxedUtil = eval
         
         # North gate
         if not game.board[game.radius][0].occupied:
             branch = copy.deepcopy(game)
             branch.add(0,game.radius,game.current_player)
             branch.player = (branch.player+1)%2
-            eval = min_value(branch, 1)
+            eval = min_value(branch, 0)
 
             if eval > maxedUtil:
                 bestMove = a
+                maxedUtil = eval
 
         # West gate
-        if not game.board[0][self.radius].occupied:
+        if not game.board[0][game.radius].occupied:
             branch = copy.deepcopy(game)
             branch.add(-1 * game.radius,0,game.current_player)
             branch.player = (branch.player+1)%2
-            eval = min_value(branch, 1)
+            eval = min_value(branch, 0)
 
             if eval > maxedUtil:
                 bestMove = a
+                maxedUtil = eval
 
         # South gate
-        if not game.board[self.radius][self.radius*2].occupied:
+        if not game.board[game.radius][game.radius*2].occupied:
             branch = copy.deepcopy(game)
             branch.add(0,-1 * game.radius,game.current_player)
             branch.player = (branch.player+1)%2
-            eval = min_value(branch, 1)
+            eval = min_value(branch, 0)
 
             if eval > maxedUtil:
                 bestMove = a
+                maxedUtil = eval
 
         # East gate
-        if not game.board[self.radius*2][self.radius].occupied:
+        if not game.board[game.radius*2][game.radius].occupied:
             branch = copy.deepcopy(game)
             branch.add(game.radius,0,game.current_player)
             branch.player = (branch.player+1)%2
-            eval = min_value(branch, 1)
+            eval = min_value(branch, 0)
 
             if eval > maxedUtil:
                 bestMove = a
+                maxedUtil = eval
 
         print(f'{bestMove} with a util of {maxedUtil}')
 
