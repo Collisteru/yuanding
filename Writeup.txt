@@ -1,0 +1,40 @@
+The libraries used are the following: 
+ - math
+ - colorama
+ - termcolor
+ - numpy
+ 
+ The frameworks used was based on the Mancala project in class in terms of having or building up to
+ - display function
+ - variable board sizing
+ - aimagames Minimax 
+ 
+ Our testing so far has confirmed the following functionality
+ - Board
+     - Display
+        * We can verify visually that display corresponds to correct boardstate
+     - Correct coordinate notation
+        * We can verify visually that display corresponds to correct boardstate
+     - Gameplay
+        * 
+     - Harmony 
+     - Win condition checking
+     - Harmony chain checking
+ - Action
+     - Player input
+     - Placing pieces
+     - Removing pieces
+     - Moving pieces
+         - Legally moving existing pieces
+         - Legally placing pieces
+         - Capturing pieces
+ - AI
+     - Minimax
+         - Evaluation function
+             - Harmony chain checking
+     - Random Gameplay
+
+
+
+The following are functionalities to test but haven't been fully implemented or functionalities that are to be implemented with more progress.
+ - Alpha Beta (Requires "Minimax" to work.)
