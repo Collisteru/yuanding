@@ -4,35 +4,44 @@ The libraries used are the following:
  - termcolor
  - numpy
  
- The frameworks used was based on the Mancala project in class in terms of having or building up to
+The frameworks used was based on the Mancala project in class in terms of having or building up to
  - display function
  - variable board sizing
  - aimagames Minimax 
  
- Our testing so far has confirmed the following functionality
+Our testing so far has confirmed the following functionality
  - Board
      - Display
         * We can verify visually that display corresponds to correct boardstate
      - Correct coordinate notation
         * We can verify visually that display corresponds to correct boardstate
      - Gameplay
-        * 
+        * We can play a game that abides by the modified rules
      - Harmony 
      - Win condition checking
+        * We create board states in which there should be a win and see there are wins.
      - Harmony chain checking
+        * We form harmonies and check internally if the harmonies actually go off.
  - Action
      - Player input
+        * We can play a game
      - Placing pieces
      - Removing pieces
      - Moving pieces
          - Legally moving existing pieces
+            * Not only can we individually verify legal move placement by manually inputting moves, but also the legal move checker seems to work with the AI.
          - Legally placing pieces
+            * Not only can we individually verify legal move placement by manually inputting moves, but also the legal move checker seems to work with the AI.
          - Capturing pieces
+            * Pieces seem to get captured in accordance to expected behavior in AI testing and manual player testing.
  - AI
      - Minimax
          - Evaluation function
+             * The harmony chains and piece placement are giving manually verifiable utility
              - Harmony chain checking
+                * The harmony chains are giving manually verifiable utility
      - Random Gameplay
+        * Gameplay of a player vs the random gameplay seems to be playing legal moves and identifies all possible moves.
 
 
 
