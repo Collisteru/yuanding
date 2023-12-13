@@ -43,7 +43,9 @@ Our testing so far has confirmed the following functionality
      - Random Gameplay
         * Gameplay of a player vs the random gameplay seems to be playing legal moves and identifies all possible moves.
 
-
-
 The following are functionalities to test but haven't been fully implemented or functionalities that are to be implemented with more progress.
  - Alpha Beta (Requires "Minimax" to work.)
+
+We quickly found out how much branching factor impacted our AI. In our testing, we initially had the pieces able to move 3 spaces, but we realized that a single piece would then have 24 possible moves. This dramatically slowed down iterating through all moves within a certain depth for minimax. To remedy this, we altered the acceptable game rules to restrict the pieces to only be able to move 1 space which drops the branching factor to 4 per piece.
+
+We also found out how potential emergent behavior that's unintuitive to a player would appear. In an example, we were confused regarding a decision that the AI did in that it initially appeared that the AI didn't find the best move, but on further analysis, it turns out that the AI actually saw the opponent planting in the garden which would result in it losing a lot of evaluation. In fact, discussion about the concept of gate control was talked about between the two of us, but we had ended up seeing it manifest despite not actually placing direct evaluation value on it.
