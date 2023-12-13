@@ -30,32 +30,15 @@ def main(argv):
     # Host Should be able to win in one Turn
 
     game = PaiSho.PaiSho(4)
-
-
-    game.add(0,4,1)
-
-    game.add(-1,-1,1)
-
-    game.add(-4,0,0)
-
-    game.add(1,3,0)
-
-    game.add(2,4,1)
-
-    game.add(-1,2,1)
-
-    game.add(-4,-1,0)
-
-    game.add(0,0,0)
-
   
     game.current_player = 1
 
-    MoveMaker = ai.AI()
-
-    MoveMaker.minmax_decision(game, 2)
-
     game.display_board()
+
+    # Start a game of the human player against the AI
+    game.play(5)
+
+    
 
 
 if __name__ == "__main__":

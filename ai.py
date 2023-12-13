@@ -12,10 +12,11 @@ import copy as copy
 
 class AI:
 
-    def __init__(self, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 1):
+    def __init__(self, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 1, maxDepth = 2):
         self.pieceBonus = pieceBonus
         self.harmonyBonus = harmonyBonus
         self.crossoverBonus = crossoverBonus
+        self.maxDepth = maxDepth
         
     # we can modify the piece utility via this value
 
@@ -94,12 +95,13 @@ class AI:
         return state.game_over == 1
 
 # Checks if this game state is a terminal node
-
-    def minmax_decision(self, game, maxDepth = 3):
         '''
         Given a state in a game, calculate the best move by searching
         forward all the way to the terminal states. [Figure 5.3]
         '''
+    def minmax_decision(self, game, maxDepth = 3):
+        maxDepth = self.maxDepth
+
         player = game.current_player
 
         def max_value(state, depth):
@@ -232,58 +234,75 @@ class AI:
                 bestMove = a
                 maxedUtil = eval
         
-        # North gate
-        if not game.board[game.radius][0].occupied():
-            branch = copy.deepcopy(game)
-            branch.add(0,game.radius,game.current_player)
-            branch.current_player = (branch.current_player+1)%2
-            eval = min_value(branch, 0)
-            # print("Planting")
-            # branch.display_board()
+            # North gate
+            if not game.board[game.radius][0].occupied():
+                branch = copy.deepcopy(game)
+                branch.add(0,game.radius,game.current_player)
+                branch.current_player = (branch.current_player+1)%2
+                eval = min_value(branch, 0)
+                # print("Planting")
+                # branch.display_board()
 
-            if eval > maxedUtil:
-                bestMove = a
-                maxedUtil = eval
+                if eval > maxedUtil:
+                    bestMove = a
+                    maxedUtil = eval
 
-        # West gate
-        if not game.board[0][game.radius].occupied():
-            branch = copy.deepcopy(game)
-            branch.add(-1 * game.radius,0,game.current_player)
-            branch.current_player = (branch.current_player+1)%2
-            eval = min_value(branch, 0)
-            # print("Planting")
-            # branch.display_board()
+            # West gate
+            if not game.board[0][game.radius].occupied():
+                branch = copy.deepcopy(game)
+                branch.add(-1 * game.radius,0,game.current_player)
+                branch.current_player = (branch.current_player+1)%2
+                eval = min_value(branch, 0)
+                # print("Planting")
+                # branch.display_board()
 
-            if eval > maxedUtil:
-                bestMove = a
-                maxedUtil = eval
+                if eval > maxedUtil:
+                    bestMove = a
+                    maxedUtil = eval
 
-        # South gate
-        if not game.board[game.radius][game.radius*2].occupied():
-            branch = copy.deepcopy(game)
-            branch.add(0,-1 * game.radius,game.current_player)
-            branch.current_player = (branch.current_player+1)%2
-            eval = min_value(branch, 0)
-            # print("Planting")
-            # branch.display_board()
+            # South gate
+            if not game.board[game.radius][game.radius*2].occupied():
+                branch = copy.deepcopy(game)
+                branch.add(0,-1 * game.radius,game.current_player)
+                branch.current_player = (branch.current_player+1)%2
+                eval = min_value(branch, 0)
+                # print("Planting")
+                # branch.display_board()
 
-            if eval > maxedUtil:
-                bestMove = a
-                maxedUtil = eval
+                if eval > maxedUtil:
+                    bestMove = a
+                    maxedUtil = eval
 
-        # East gate
-        if not game.board[game.radius*2][game.radius].occupied():
-            branch = copy.deepcopy(game)
-            branch.add(game.radius,0,game.current_player)
-            branch.current_player = (branch.current_player+1)%2
-            eval = min_value(branch, 0)
-            # print("Planting")
-            # branch.display_board()
+            # East gate
+            if not game.board[game.radius*2][game.radius].occupied():
+                branch = copy.deepcopy(game)
+                branch.add(game.radius,0,game.current_player)
+                branch.current_player = (branch.current_player+1)%2
+                eval = min_value(branch, 0)
+                # print("Planting")
+                # branch.display_board()
 
-            if eval > maxedUtil:
-                bestMove = a
-                maxedUtil = eval
+                if eval > maxedUtil:
+                    bestMove = a
+                    maxedUtil = eval
 
         print(f'{bestMove} with a util of {maxedUtil}')
 
         return bestMove, maxedUtil
+    
+    # Takes a turn as the given player in the given game
+    def take_turn(self, player, game):
+        if player == 0:
+
+            print("The Guest takes a generated turn.")
+            self.move(game)
+        elif player == 1:
+            print("The Host takes a generated turn.")
+            self.move(game)
+        
+    # Choose a move in the given game with the given maxDepth
+    def move(self, game):
+        maxDepth = self.maxDepth
+        chosen_move = self.minmax_decision(game, maxDepth)
+
+        print("I think the best move is: ", chosen_move)

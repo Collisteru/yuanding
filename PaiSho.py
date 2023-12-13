@@ -7,6 +7,7 @@ from termcolor import colored
 from termcolor import cprint
 import sys
 import randomplayer
+import ai
 
 from exceptions import MoveException
 
@@ -713,10 +714,74 @@ class PaiSho:
 
             self.end_game()
 
-    # Code to begin the game
+    def pvaiplay(self):
+        
+        hostorguest = input("Do you want to play as the Host or the Guest? Input H for Host, G for guest. \n")
 
+        if hostorguest == 'H' or hostorguest == 'h':
+            aiplayer = ai.AI()
+            hplayer = 1
+            iplayer = 0
+        elif hostorguest == 'G' or hostorguest == 'g':
+            aiplayer = ai.AI()
+            hplayer = 0
+            iplayer = 1
+
+        self.begin_game()
+
+        if hplayer == 0:
+            while not self.game_over:
+                if self.current_player == 0:
+
+                    # Pass the current player and the game board into the random agent so that they can take their turn
+                    self.take_turn(self.current_player)
+
+                    self.display_board()
+                    
+                    self.check_win_condition()
+
+                else:
+                    aiplayer.take_turn(iplayer, self)
+
+                    self.display_board()
+
+                    self.check_win_condition()
+                    self.round += 1
+
+                # Advance round
+                self.current_player = (self.current_player + 1) % 2
+            self.end_game()
+
+        elif hplayer == 1:
+            while not self.game_over:
+                print("self.current_player: ", self.current_player)
+                if self.current_player == 0:
+                    print("The aiplayer takes their turn...")
+                    aiplayer.take_turn(iplayer, self)
+
+                    self.display_board()
+
+                    self.check_win_condition()
+                else:
+                    
+                    # Pass the current player and the game state to the random agent so that they can take their turn
+                    self.take_turn(self.current_player)
+
+                    self.display_board()
+
+                    self.check_win_condition()
+                    self.round += 1
+
+                # Advance round
+                self.current_player = (self.current_player + 1) % 2
+
+            self.end_game()
+
+    # Code to begin the game
     def begin_game(self):
         print("Come in and have a cup of tea. Let's play a game of Skud Pai Sho.")
+
+        self.current_player = 0
         
         # The Host plays with light tiles and the Guest plays with dark tiles. The Guest plays first.
         # Internally we represent the Guest as 0 and the Host as 1
