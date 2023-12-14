@@ -23,12 +23,6 @@ def main(argv):
         radius = int(arg)
 
 
-    # # Replace this with a test?
-    # game = PaiSho.PaiSho(radius)
-    # game.play()
-
-    # Host Should be able to win in one Turn
-
     game = PaiSho.PaiSho(4)
   
     game.current_player = 1

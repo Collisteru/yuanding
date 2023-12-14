@@ -12,10 +12,12 @@ import copy as copy
 
 class AI:
 
-    def __init__(self, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 1):
+    def __init__(self, player, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 1, maxDepth = 2):
         self.pieceBonus = pieceBonus
         self.harmonyBonus = harmonyBonus
         self.crossoverBonus = crossoverBonus
+        self.maxDepth = maxDepth
+        self.player = player
         
     # we can modify the piece utility via this value
 
@@ -94,12 +96,13 @@ class AI:
         return state.game_over == 1
 
 # Checks if this game state is a terminal node
-
-    def minmax_decision(self, game, maxDepth = 3):
         '''
         Given a state in a game, calculate the best move by searching
         forward all the way to the terminal states. [Figure 5.3]
         '''
+    def minmax_decision(self, game, maxDepth = 3):
+        maxDepth = self.maxDepth
+
         player = game.current_player
 
         def max_value(state, depth):
@@ -215,6 +218,7 @@ class AI:
         bestMove = None
         maxedUtil = -np.inf
         legalMoves = game.get_valid_moves(game.current_player)
+        print("The AI says: I see these legal moves: ", legalMoves)
         for a in legalMoves[1]: #iterate through all arrange moves
             # "play" out the current move.
             branch = copy.deepcopy(game)
@@ -242,7 +246,7 @@ class AI:
             # branch.display_board()
 
             if eval > maxedUtil:
-                bestMove = a
+                bestMove = "U"
                 maxedUtil = eval
 
         # West gate
@@ -255,7 +259,7 @@ class AI:
             # branch.display_board()
 
             if eval > maxedUtil:
-                bestMove = a
+                bestMove = "L"
                 maxedUtil = eval
 
         # South gate
@@ -268,7 +272,7 @@ class AI:
             # branch.display_board()
 
             if eval > maxedUtil:
-                bestMove = a
+                bestMove = "D"
                 maxedUtil = eval
 
         # East gate
@@ -281,9 +285,41 @@ class AI:
             # branch.display_board()
 
             if eval > maxedUtil:
-                bestMove = a
+                bestMove = "R"
                 maxedUtil = eval
 
         print(f'{bestMove} with a util of {maxedUtil}')
 
         return bestMove, maxedUtil
+    
+    # Takes a turn as the given player in the given game
+    def take_turn(self, player, game):
+        if player == 0:
+            self.move(game)
+        elif player == 1:
+            print("The Host takes a generated turn.")
+            self.move(game)
+        
+    # Choose a move in the given game with the given maxDepth
+    def move(self, game):
+        maxDepth = self.maxDepth
+        chosen_move, chosen_move_util = self.minmax_decision(game, maxDepth)
+
+        # Process the chosen move
+
+        # The first four cases cover planting moves
+        if (chosen_move == "U"):
+            game.add(0, game.radius, self.player)
+        elif (chosen_move == "D"):
+            game.add(0, -game.radius, self.player)
+        elif (chosen_move == "L"):
+            game.add(-game.radius, 0, self.player)
+        elif (chosen_move == "R"):
+            game.add(game.radius, 0, self.player)
+        else:
+            # The rest covers arranging moves
+            oldx, oldy, newx, newy = chosen_move
+            game.move(int(oldx), int(oldy), int(newx), int(newy))
+
+
+        print("I think the best move is: ", chosen_move)
