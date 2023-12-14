@@ -87,6 +87,7 @@ The AI player uses a minmax tree to select the optimal move. Our tree has a maxi
 
 ### Utility Function
 
+<<<<<<< HEAD
 The AI player uses a utility function to rate the utility of each board. The utility function is an important feature of the AI design and was designed to help the AI set itself up in the opening as well as help it spot a winning strategy once setup is complete.
 
 The Host tries to maximize the utility of each state, and the Guest tries to minimize the utility.
@@ -123,6 +124,13 @@ In our implementation, all pieces have the same move radius. You can change this
  - The AIs
 
 
+=======
+We determined for the AI the following metrics were "valuable." Below will be listed the conditions for obtaining utility as well as the default values (though our structure allows for us to adjust the values as we see fit).
+A win is max utility.
+A piece on the board is worth one "point."
+A harmony is worth one "point"
+Each harmony in a harmony chain that crosses a unique axis (that is to say, no other harmony in that chain crosses that axis) is worth five points.
+>>>>>>> 152dd0de6b75092ce8cfa647af69bd9e6a3b03d4
 
  ### Conclusions
 
