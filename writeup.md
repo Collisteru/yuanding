@@ -4,7 +4,19 @@ Pai Sho Yuanding is a new AI system for the game Skud Pai Sho. Skud Pai Sho is a
 
 To our knowledge, there are no good existing AIs for Skud Pai Sho. Part of the goal for this project was to see if we could use techniques discussed in class to create a good AI player for the game.
 
-This project was particularly challenging because it involved implementing the game of Skud Pai Sho from scratch in Python and in a way that would make it a good framework for the AI. To make this task tenable in the month we had, we implmemented a greatly simplified version of Skud Pai Sho that is played on a smaller board and with only one type of piece. Each piece can only move one space orthogonally to decreate the number of options for each piece. These changes significantly reduced the branching factor, which was by far the most challenging aspect of this project. However, even our simplified game is still a very complex environment, adn the AI exhibits interesting and emergent behavior in the environment that we've implemented.
+This project was particularly challenging because it involved implementing the game of Skud Pai Sho from scratch in Python and in a way that would make it a good framework for the AI. To make this task tenable in the month we had, we implmemented a greatly simplified version of Skud Pai Sho that is played on a smaller board and with only one type of piece. Each piece can only move one space orthogonally to decreate the number of options for each piece. These changes significantly reduced the branching factor, which was by far the most challenging aspect of this project. However, even our simplified game is still a very complex environment, and the AI exhibits interesting and emergent behavior in the environment that we've implemented.
+
+### Demo
+
+This project includes many demos allowing you to see the AIs in action. To see them, run the following files in your terminal. ALL OUTPUT IS DISPLAYED IN THE TERMINAL, SO MAKE SURE YOU ARE RUNNING THESE VIA THE TERMINAL.
+
+playervsplayer.py -- Play against your friend on the same terminal
+
+playervsai.py -- Allows you to play against the AI
+
+aivsai.py -- Watch the AIs play against each other.
+
+aivsrand.py -- Watch an AI play against a totally random opponent.
 
 
 ### The libraries used are the following: 
@@ -75,7 +87,40 @@ The AI player uses a minmax tree to select the optimal move. Our tree has a maxi
 
 ### Utility Function
 
-FIXME: Write about the utility function here!
+The AI player uses a utility function to rate the utility of each board. The utility function is an important feature of the AI design and was designed to help the AI set itself up in the opening as well as help it spot a winning strategy once setup is complete.
+
+The Host tries to maximize the utility of each state, and the Guest tries to minimize the utility.
+
+- PieceBonus: Each Host piece on the board adds 1 to the board's utility; each Guest piece subtracts 1
+
+- HarmonyBonus: Each Host harmony adds 3 to the baord's utility, opposite for the Guest.
+
+- CrossoverBonus: When a harmony crosses over one the four axes on the board, this is called a "crossover bonus." Harmonies are worth more if they cross over one of the four axes.
+
+- WinningBonus: Any move that would win the game is considered to have infinite utility (this is buggy right now.)
+
+You can see the utility implementation in the calculate_utility function.
+
+
+### Tweaks
+
+There are three main variables you can tweak while playing around with the AI to observe different behaviors.
+
+**Board Radius:** Larger boards offer more room to set up harmonies and fewer capture opportunities, but also tend to be slower for the AIs to calculate. Adjust this by passing in different integers to the PaiSho.PaiSho() function in the demo files.
+
+**Piece Move Radius:** In the original game, different pieces can move different numbers of squares at a time, ranging from 3 to 5. This results in explosive branch factors, so we changed it to 1 in our implementation. However, this results in slow, capture-heavy games with few opporrtunities for harmonies. We have found that 2 is a good sweet spot that still runs at a decent spped. 
+
+In our implementation, all pieces have the same move radius. You can change this by going into piece.py and changing self.type t0 "3" or "4", or whatever you want the move radius to be. MAKE SURE THAT THIS IS A STRING, EVEN THOUGH THE STRING ALWAYS REPRESENTS A DIGIT.
+
+**AI Max Depth:** The most important parameter. Higher values make the AI see more moves into the future, thus making the AI much better, but will also *significantly* slow down AI processing. Do not mix high AI Max Depth with high Piece Move Radius.
+
+
+
+### Observations
+
+ - Limiting the pieces to move one at a time tends to make for capture-heavy games.
+
+ - The AIs
 
 
 

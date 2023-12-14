@@ -1,3 +1,5 @@
+# DEMO: ALLOWS THE PLAYER TO PLAY AGAINST ANOTHER PLAYER ON THE SAME COMPUTER
+
 import PaiSho
 import randomplayer
 import ai
@@ -9,7 +11,7 @@ def main(argv):
     opts, args = getopt.getopt(argv, "hr:")
 
     # Default radius
-    radius = 3
+    radius = 5
 
     for opt, arg in opts:
         if opt == '-h':
@@ -27,8 +29,7 @@ def main(argv):
 
     game.display_board()
 
-    # Start a game of two AIs against each other
-    game.play(6)
+    game.play(5)
 
     
 

@@ -12,7 +12,7 @@ import copy as copy
 
 class AI:
 
-    def __init__(self, player, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 1, maxDepth = 2):
+    def __init__(self, player, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 3, maxDepth = 2):
         self.pieceBonus = pieceBonus
         self.harmonyBonus = harmonyBonus
         self.crossoverBonus = crossoverBonus
@@ -58,7 +58,7 @@ class AI:
     # The selected player will be deemed "more winning" if utility is positive
     def calculate_utility(self, game, player = 0):
         if self.terminate(game):
-            return np.inf * ((game.winner == player) * 2 - 1)
+            return 1000 * ((game.winner == player) * 2 - 1)
         utility = 0 
         viewed = [] #A list of viewed pieces
         for currentPiece in game.placed:
@@ -83,7 +83,7 @@ class AI:
                 viewed.append(currentPiece)
                 utility += multiplier * self.pieceBonus
                 for i in currentPiece.harmonized:
-                    utility += multiplier * self.utilRecur(currentPiece, i, viewed, [])
+                    utility += multiplier * self.utilRecur(currentPiece, i, viewed, []) * self.harmonyBonus
 
         # print(f'utility is {utility}')
         return utility
@@ -287,8 +287,6 @@ class AI:
             if eval > maxedUtil:
                 bestMove = "R"
                 maxedUtil = eval
-
-        print(f'{bestMove} with a util of {maxedUtil}')
 
         return bestMove, maxedUtil
     
