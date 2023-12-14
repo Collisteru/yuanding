@@ -87,7 +87,6 @@ The AI player uses a minmax tree to select the optimal move. Our tree has a maxi
 
 ### Utility Function
 
-<<<<<<< HEAD
 The AI player uses a utility function to rate the utility of each board. The utility function is an important feature of the AI design and was designed to help the AI set itself up in the opening as well as help it spot a winning strategy once setup is complete.
 
 The Host tries to maximize the utility of each state, and the Guest tries to minimize the utility.
@@ -121,19 +120,16 @@ In our implementation, all pieces have the same move radius. You can change this
 
  - Limiting the pieces to move one at a time tends to make for capture-heavy games.
 
- - The AIs
+ - The AIs tend to get into loops of activity, especially with low move radii and low maxDepths. This is because, with such limited restrictions on movement, the AIs get into the same situations over and over again.
 
+ - On a large enough board and with a piece move of 2, an AI can easily beat a random player.
 
-=======
-We determined for the AI the following metrics were "valuable." Below will be listed the conditions for obtaining utility as well as the default values (though our structure allows for us to adjust the values as we see fit).
-A win is max utility.
-A piece on the board is worth one "point."
-A harmony is worth one "point"
-Each harmony in a harmony chain that crosses a unique axis (that is to say, no other harmony in that chain crosses that axis) is worth five points.
->>>>>>> 152dd0de6b75092ce8cfa647af69bd9e6a3b03d4
+- Two AIs tend to get into stalemates
 
  ### Conclusions
 
 We quickly found out how much branching factor impacted our AI. In our testing, we initially had the pieces able to move 3 spaces, but we realized that a single piece would then have 24 possible moves. This dramatically slowed down iterating through all moves within a certain depth for minimax. To remedy this, we altered the acceptable game rules to restrict the pieces to only be able to move 1 space which drops the branching factor to 4 per piece.
 
 We also found out how potential emergent behavior that's unintuitive to a player would appear. In an example, we were confused regarding a decision that the AI did in that it initially appeared that the AI didn't find the best move, but on further analysis, it turns out that the AI actually saw the opponent planting in the garden which would result in it losing a lot of evaluation. In fact, we talked about the concept of gate control, which in Skud Pai Sho is when a player keeps one of the flowers in a gate to prevent the opponent from being able to use it, and we had decided that we saw it manifest despite not placing direct evaluation value on it.
+
+If we had more time on this project, we would be very interested in *implement alpha beta pruning to make the AI minmaxes faster*. This would unlock much more powerful AIs, since the AIs would be able to make similarly complex decisions in a much shorter amount of time. We would also be interested in exploring variants of Skud Pai Sho that are clsoer to the original game.
