@@ -75,9 +75,11 @@ The AI player uses a minmax tree to select the optimal move. Our tree has a maxi
 
 ### Utility Function
 
-FIXME: Write about the utility function here!
-
-
+We determined for the AI the following metrics were "valuable." Below will be listed the conditions for obtaining utility as well as the default values (though our structure allows for us to adjust the values as we see fit).
+A win is max utility.
+A piece on the board is worth one "point."
+A harmony is worth one "point"
+Each harmony in a harmony chain that crosses a unique axis (that is to say, no other harmony in that chain crosses that axis) is worth five points.
 
  ### Conclusions
 
