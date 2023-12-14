@@ -12,11 +12,12 @@ import copy as copy
 
 class AI:
 
-    def __init__(self, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 1, maxDepth = 2):
+    def __init__(self, player, pieceBonus = 1, crossoverBonus = 5, harmonyBonus = 1, maxDepth = 2):
         self.pieceBonus = pieceBonus
         self.harmonyBonus = harmonyBonus
         self.crossoverBonus = crossoverBonus
         self.maxDepth = maxDepth
+        self.player = player
         
     # we can modify the piece utility via this value
 
@@ -217,7 +218,7 @@ class AI:
         bestMove = None
         maxedUtil = -np.inf
         legalMoves = game.get_valid_moves(game.current_player)
-        print("I see these legal moves: ", legalMoves)
+        print("The AI says: I see these legal moves: ", legalMoves)
         for a in legalMoves[1]: #iterate through all arrange moves
             # "play" out the current move.
             branch = copy.deepcopy(game)
@@ -228,9 +229,7 @@ class AI:
 
             #branch.display_board()
 
-            print("Calling min_value...")
             eval = min_value(branch, 0)
-            print("Result from min_value is: ", eval)
             #print(eval)
 
             if eval > maxedUtil:
@@ -260,7 +259,7 @@ class AI:
             # branch.display_board()
 
             if eval > maxedUtil:
-                bestMove = "W"
+                bestMove = "L"
                 maxedUtil = eval
 
         # South gate
@@ -273,7 +272,7 @@ class AI:
             # branch.display_board()
 
             if eval > maxedUtil:
-                bestMove = "S"
+                bestMove = "D"
                 maxedUtil = eval
 
         # East gate
@@ -286,7 +285,7 @@ class AI:
             # branch.display_board()
 
             if eval > maxedUtil:
-                bestMove = "E"
+                bestMove = "R"
                 maxedUtil = eval
 
         print(f'{bestMove} with a util of {maxedUtil}')
@@ -296,7 +295,6 @@ class AI:
     # Takes a turn as the given player in the given game
     def take_turn(self, player, game):
         if player == 0:
-            print("The Guest takes a generated turn.")
             self.move(game)
         elif player == 1:
             print("The Host takes a generated turn.")
@@ -305,6 +303,23 @@ class AI:
     # Choose a move in the given game with the given maxDepth
     def move(self, game):
         maxDepth = self.maxDepth
-        chosen_move = self.minmax_decision(game, maxDepth)
+        chosen_move, chosen_move_util = self.minmax_decision(game, maxDepth)
+
+        # Process the chosen move
+
+        # The first four cases cover planting moves
+        if (chosen_move == "U"):
+            game.add(0, game.radius, self.player)
+        elif (chosen_move == "D"):
+            game.add(0, -game.radius, self.player)
+        elif (chosen_move == "L"):
+            game.add(-game.radius, 0, self.player)
+        elif (chosen_move == "R"):
+            game.add(game.radius, 0, self.player)
+        else:
+            # The rest covers arranging moves
+            oldx, oldy, newx, newy = chosen_move
+            game.move(int(oldx), int(oldy), int(newx), int(newy))
+
 
         print("I think the best move is: ", chosen_move)

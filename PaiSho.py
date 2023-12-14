@@ -719,11 +719,11 @@ class PaiSho:
         hostorguest = input("Do you want to play as the Host or the Guest? Input H for Host, G for guest. \n")
 
         if hostorguest == 'H' or hostorguest == 'h':
-            aiplayer = ai.AI()
+            aiplayer = ai.AI(0)
             hplayer = 1
             iplayer = 0
         elif hostorguest == 'G' or hostorguest == 'g':
-            aiplayer = ai.AI()
+            aiplayer = ai.AI(1)
             hplayer = 0
             iplayer = 1
 
