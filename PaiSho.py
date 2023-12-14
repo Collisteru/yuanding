@@ -777,6 +777,44 @@ class PaiSho:
 
             self.end_game()
 
+    def aivaiplay(self):
+
+        self.begin_game()
+
+        host = ai.AI(1, maxDepth=3)
+
+        guest = ai.AI(0, maxDepth = 3)
+
+        while not self.game_over:
+
+            # The host takes their turn
+            if self.current_player == 0:
+
+                # Pass the current player and the game board into the random agent so that they can take their turn
+
+                print("The guest takes their turn.")
+
+                guest.take_turn(0, self)
+
+                self.display_board()
+                
+                self.check_win_condition()
+
+            else:
+
+                print("The host takes their turn.")
+
+                host.take_turn(0, self)
+
+                self.display_board()
+
+                self.check_win_condition()
+                self.round += 1
+
+            # Advance round
+            self.current_player = (self.current_player + 1) % 2
+        self.end_game()
+
     # Code to begin the game
     def begin_game(self):
         print("Come in and have a cup of tea. Let's play a game of Skud Pai Sho.")

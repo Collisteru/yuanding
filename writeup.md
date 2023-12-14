@@ -57,7 +57,7 @@ Our testing so far has confirmed the following functionality
  - Alpha Beta (Requires "Minimax" to work.)
 
 
- ## Implementation Details
+## Implementation Details
 
  Our implementation of Skud Pai Sho was based entirely on the command line, as we didn't want to deal with graphics libraries in the limited time we have. You can play a game with another player entirely with the command line by running the "pvpdemo.py" file.
 
@@ -73,6 +73,9 @@ You can see this algorithm in particular in the traversal function in PaiSho.py.
 
 The AI player uses a minmax tree to select the optimal move. Our tree has a maximum depth of 2, as we discovered that the AI takes too long when using any depth larger than that. One interesting way to expand on this project would be to implement alpha-beta pruning to make this process faster, which we believe would allow us to implement a minmax tree at greater depths.
 
+### Utility Function
+
+FIXME: Write about the utility function here!
 
 
 

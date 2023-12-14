@@ -1,0 +1,400 @@
+Board: 
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][ ][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [ ][ ][ ][ ][ ][ ][ ]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][ ][ ]
+
+Come in and have a cup of tea. Let's play a game of Skud Pai Sho.
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][ ][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [ ][ ][ ][ ][ ][ ][ ]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][ ][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  ({'Up': True, 'Right': True, 'Down': True, 'Left': True}, [])
+U with a util of 0
+I think the best move is:  U
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [ ][ ][ ][ ][ ][ ][ ]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][ ][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': True, 'Down': True, 'Left': True}, [])
+L with a util of 1
+I think the best move is:  L
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][ ][ ][ ][ ][ ][ ]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][ ][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': True, 'Down': True, 'Left': False}, [[0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3]])
+[0, 3, -1, 3] with a util of 0
+I think the best move is:  [0, 3, -1, 3]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [1][ ][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][ ][ ][ ][ ][ ][ ]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][ ][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  ({'Up': True, 'Right': True, 'Down': True, 'Left': False}, [[-3, 0, -3, -1], [-3, 0, -3, 1], [-3, 0, -2, 0]])
+R with a util of 2
+I think the best move is:  R
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [1][ ][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][—][1]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][ ][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  ({'Up': True, 'Right': False, 'Down': True, 'Left': False}, [[-1, 3, -1, 2], [-1, 3, 0, 3]])
+D with a util of 1
+I think the best move is:  D
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [1][ ][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][—][1]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  ({'Up': True, 'Right': False, 'Down': False, 'Left': False}, [[-3, 0, -3, -1], [-3, 0, -3, 1], [-3, 0, -2, 0], [3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1]])
+U with a util of 4
+I think the best move is:  U
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [1][1][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][—][1]
+-1 [ ][ ][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  (0, [[-1, 3, -1, 2], [-1, 3, 0, 3]])
+[-1, 3, 0, 3] with a util of 0
+I think the best move is:  [-1, 3, 0, 3]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [1][—][—][|][—][—][1]
+-1 [ ][ ][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  (0, [[-3, 0, -3, -1], [-3, 0, -3, 1], [-3, 0, -2, 0], [3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1]])
+[-3, 0, -3, -1] with a util of 4
+I think the best move is:  [-3, 0, -3, -1]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [ ][ ][ ][|][ ][ ][1]
+-1 [1][ ][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': False, 'Down': False, 'Left': True}, [[0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3]])
+L with a util of 1
+I think the best move is:  L
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [1][ ][ ][|][ ][ ][1]
+-1 [1][ ][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  (0, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [-3, -1, -2, -1]])
+[-3, -1, -2, -1] with a util of 2
+I think the best move is:  [-3, -1, -2, -1]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [1][ ][ ][|][ ][ ][1]
+-1 [ ][1][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  (0, [[0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3], [-3, 0, -3, -1], [-3, 0, -3, 1], [-3, 0, -2, 0]])
+[-3, 0, -3, -1] with a util of 2
+I think the best move is:  [-3, 0, -3, -1]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [ ][ ][ ][|][ ][ ][1]
+-1 [1][1][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': False, 'Down': False, 'Left': True}, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [-2, -1, -2, -2], [-2, -1, -2, 0], [-2, -1, -1, -1]])
+L with a util of 3
+I think the best move is:  L
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [1][—][—][|][—][—][1]
+-1 [1][1][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  (0, [[0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3], [-3, -1, -2, -1]])
+[-3, -1, -2, -1] with a util of 2
+I think the best move is:  [-3, -1, -2, -1]
+Board: 
+
+   -3 -2 -1  0  1  2  3 
+ 3       [ ][1][ ]      
+ 2    [ ][ ][|][ ][ ]   
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [1][—][—][|][—][—][1]
+-1 [ ][1][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]   
+-3       [ ][1][ ]      
+
+The host takes their turn.
+The AI says: I see these legal moves:  (0, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [-3, 0, -3, -1], [-3, 0, -3, 1], [-3, 0, -2, 0]])
+[-3, 0, -3, 1] with a util of 1
+I think the best move is:  [-3, 0, -3, 1]
+Board: 
+
+   -3 -2 -1  0  1  2  3 
+ 3       [ ][1][ ]      
+ 2    [ ][ ][|][ ][ ]   
+ 1 [1][ ][ ][|][ ][ ][ ]
+ 0 [ ][ ][ ][|][ ][ ][1]
+-1 [ ][1][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': False, 'Down': False, 'Left': True}, [[0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3], [-2, -1, -2, -2], [-2, -1, -2, 0], [-2, -1, -1, -1]])
+L with a util of 3
+I think the best move is:  L
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [1][ ][ ][|][ ][ ][ ]
+ 0 [1][ ][ ][|][ ][ ][1]
+-1 [ ][1][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  (0, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [-3, 1, -3, 0], [-3, 1, -2, 1]])
+[-3, 1, -3, 0] with a util of -1
+I think the best move is:  [-3, 1, -3, 0]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][|][ ][ ]
+ 1 [ ][ ][ ][|][ ][ ][ ]
+ 0 [1][—][—][|][—][—][1]
+-1 [ ][1][ ][|][ ][ ][ ]
+-2    [ ][ ][|][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  (0, [[0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3], [-2, -1, -2, -2], [-2, -1, -2, 0], [-2, -1, -1, -1]])
+[0, 3, -1, 3] with a util of 4
+I think the best move is:  [0, 3, -1, 3]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [1][ ][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][—][1]
+-1 [ ][1][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  ({'Up': True, 'Right': False, 'Down': False, 'Left': False}, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [-3, 0, -3, -1], [-3, 0, -3, 1], [-3, 0, -2, 0]])
+U with a util of 1
+I think the best move is:  U
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [1][1][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][—][1]
+-1 [ ][1][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  (0, [[-2, -1, -2, -2], [-2, -1, -2, 0], [-2, -1, -1, -1], [-1, 3, -1, 2], [-1, 3, 0, 3]])
+[-1, 3, -1, 2] with a util of 3
+I think the best move is:  [-1, 3, -1, 2]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][1][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][—][1]
+-1 [ ][1][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  (0, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [-3, 0, -3, -1], [-3, 0, -3, 1], [-3, 0, -2, 0], [0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3]])
+[-3, 0, -3, -1] with a util of 1
+I think the best move is:  [-3, 0, -3, -1]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][1][ ][ ][ ]
+ 1 [ ][ ][ ][ ][ ][ ][ ]
+ 0 [ ][ ][ ][ ][ ][ ][1]
+-1 [1][1][ ][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': False, 'Down': False, 'Left': True}, [[-2, -1, -2, -2], [-2, -1, -2, 0], [-2, -1, -1, -1], [-1, 2, -2, 2], [-1, 2, -1, 1], [-1, 2, -1, 3], [-1, 2, 0, 2]])
+[-2, -1, -1, -1] with a util of 4
+I think the best move is:  [-2, -1, -1, -1]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][1][ ][ ][ ]
+ 1 [ ][ ][|][ ][ ][ ][ ]
+ 0 [ ][ ][|][ ][ ][ ][1]
+-1 [1][ ][1][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': False, 'Down': False, 'Left': True}, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3], [-3, -1, -2, -1]])
+L with a util of 1
+I think the best move is:  L
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][1][ ][ ][ ]
+ 1 [ ][ ][|][ ][ ][ ][ ]
+ 0 [1][—][|][—][—][—][1]
+-1 [1][ ][1][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  (0, [[-1, 2, -2, 2], [-1, 2, -1, 1], [-1, 2, -1, 3], [-1, 2, 0, 2], [-1, -1, -2, -1], [-1, -1, -1, -2], [-1, -1, -1, 0], [-1, -1, 0, -1]])
+[-1, 2, -1, 1] with a util of 3
+I think the best move is:  [-1, 2, -1, 1]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][1][ ][ ][ ][ ]
+ 0 [1][—][|][—][—][—][1]
+-1 [1][ ][1][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  (0, [[3, 0, 2, 0], [3, 0, 3, -1], [3, 0, 3, 1], [0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3], [-3, -1, -2, -1], [-3, 0, -3, 1], [-3, 0, -2, 0]])
+[3, 0, 2, 0] with a util of 1
+I think the best move is:  [3, 0, 2, 0]
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][1][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][1][ ]
+-1 [1][ ][1][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The guest takes their turn.
+The AI says: I see these legal moves:  ({'Up': False, 'Right': True, 'Down': False, 'Left': False}, [[-1, -1, -2, -1], [-1, -1, -1, -2], [-1, -1, -1, 0], [-1, -1, 0, -1], [-1, 1, -2, 1], [-1, 1, -1, 0], [-1, 1, -1, 2], [-1, 1, 0, 1]])
+R with a util of 4
+I think the best move is:  R
+Board:
+
+   -3 -2 -1  0  1  2  3
+ 3       [ ][1][ ]
+ 2    [ ][ ][ ][ ][ ]
+ 1 [ ][ ][1][ ][ ][ ][ ]
+ 0 [1][—][—][—][—][1][1]
+-1 [1][ ][1][ ][ ][ ][ ]
+-2    [ ][ ][ ][ ][ ]
+-3       [ ][1][ ]
+
+The host takes their turn.
+The AI says: I see these legal moves:  (0, [[0, 3, -1, 3], [0, 3, 0, 2], [0, 3, 1, 3], [-3, -1, -2, -1], [-3, 0, -3, 1], [-3, 0, -2, 0], [2, 0, 1, 0], [2, 0, 2, -1], [2, 0, 2, 1], [2, 0, 3, 0]])
